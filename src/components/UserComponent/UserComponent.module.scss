@@ -1,0 +1,34 @@
+.user{
+    background-color: #1C1C1E;
+    border-radius: 20px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+
+    &_avatar img{
+        max-width: 48px;
+        user-select: none;
+        min-height: 48px;
+        min-width: 48px;
+        border-radius: 50%;
+    }
+    &_info{
+        margin-left: 20px;
+        display: flex;
+        flex-direction: column;
+    }
+    &_name{
+        font-size: 20px;
+        font-weight: 700;
+    }
+    &_balance{
+        display: flex;
+        align-items: center;
+        margin-top: 5px;
+        img{
+            max-width: 20px;
+            min-width: 20px;
+            margin-right: 5px;
+        }
+    }
+}

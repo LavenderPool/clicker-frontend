@@ -1,9 +1,9 @@
 import {combineReducers} from "redux"
 import {configureStore} from "@reduxjs/toolkit"
-import WalletReducer from './reducers/WalletSlice'
+import UserReducer from './reducers/UserSlice'
 
 const rootReducer = combineReducers({
-    WalletReducer
+    UserReducer
 })
 export const setupStore = () => {
     return configureStore({

@@ -1,8 +1,15 @@
-export interface UserModule {
+interface UserModule {
     id: number,
-    telegram_id?: number,
-    name: string,
-    email:string,
-    created_at:string,
-    updated_at:string,
+    first_name: string,
+    is_premium: boolean,
+    added_to_attachment_menu: boolean,
+    allows_write_to_pm: boolean,
+    created_at: string,
+    language_code: string,
+    last_activity: number,
+    last_name: string,
+    photo_uploaded: boolean,
+    telegram_id: number,
+    updated_at: string,
+    username: string,
 }

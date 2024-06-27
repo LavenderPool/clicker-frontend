@@ -1,7 +1,9 @@
+import UserComponent from "../../components/UserComponent/UserComponent";
 
 const MainPage = () => {
     return (
-        <div>
+        <div className={"container"}>
+            <UserComponent />
             main page
         </div>
     );

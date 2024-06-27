@@ -1,0 +1,91 @@
+.friends{
+
+    background-image: url("/bg.png");
+    background-size: contain;
+    background-position: 50% 0px;
+    background-repeat: no-repeat;
+
+    &_title{
+        font-size: 48px;
+        font-weight: 700;
+        text-align: center;
+        padding-bottom: 40px;
+        padding-top: 20px;
+    }
+
+    &_buttons{
+        display: flex;
+        font-size: 20px;
+        font-weight: 700;
+    }
+    &_button{
+        width: 100%;
+        text-align: center;
+        background-color: #1C1C1E;
+        border-radius: 20px;
+        padding: 12px 0;
+        user-select: none;
+        cursor: pointer;
+        transition-duration: 0.2s;
+
+        &:first-child{
+            margin-right: 10px;
+        }
+        &:last-child{
+            margin-left: 10px;
+        }
+
+        &:hover{
+            background-color: #2b2b2d;
+        }
+    }
+
+    &_body{
+        background-color: rgb(28,28,30,0.5);
+        backdrop-filter: blur(8px);
+        padding: 20px;
+        border-radius: 20px;
+        margin-top: 20px;
+    }
+
+    &_empty{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+
+        span{
+            font-size: 30px;
+            font-weight: 700;
+            text-align: center;
+        }
+        img{
+            min-height: 158px;  
+            max-width: 158px;
+            min-width: 158px;
+        }
+    }
+
+    &_list{
+        display: flex;
+        flex-direction: column;
+    }
+    &_item{
+        display: flex;
+        align-items: center;
+        margin-bottom: 5px;
+        padding-bottom: 5px;
+        border-bottom: 2px solid rgba(222,222,222,0.02);
+        img{
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        &:last-child{
+            border-bottom: 0;
+            margin-bottom: 0;
+        }
+    }
+}

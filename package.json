@@ -1,5 +1,5 @@
 {
-  "name": "otmetka-x.ru-frontend",
+  "name": "clicker",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,8 +10,11 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.5",
+    "@tma.js/sdk-react": "^2.2.5",
     "@types/axios": "^0.14.0",
     "axios": "^1.5.0",
+    "eruda": "^3.0.1",
+    "eslint": "^9.5.0",
     "react": "^18.2.0",
     "react-content-loader": "^7.0.2",
     "react-dom": "^18.2.0",
@@ -31,6 +34,7 @@
     "sass": "^1.68.0",
     "typescript": "^5.0.2",
     "vite": "^4.4.5",
+    "vite-plugin-ngrok": "^1.0.0",
     "vite-plugin-svgr": "^4.2.0"
   }
 }
