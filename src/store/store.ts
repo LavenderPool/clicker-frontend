@@ -1,9 +1,11 @@
 import {combineReducers} from "redux"
 import {configureStore} from "@reduxjs/toolkit"
 import UserReducer from './reducers/UserSlice'
+import ReferralsReducer from './reducers/ReferralsSlice'
 
 const rootReducer = combineReducers({
-    UserReducer
+    UserReducer,
+    ReferralsReducer
 })
 export const setupStore = () => {
     return configureStore({

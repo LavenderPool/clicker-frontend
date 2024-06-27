@@ -14,10 +14,8 @@ export const UserSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
-        setUser(state, action:PayloadAction<number>){
-            const data = action.payload
-            console.log(data);
-            state.user = data.user
+        setUser(state, action:PayloadAction<UserModule>){
+            state.user = action.payload
             state.is_loaded = true
         },
     }

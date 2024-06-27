@@ -4,18 +4,25 @@ import ReferralService from "../../services/ReferralService";
 import {retrieveLaunchParams} from "@tma.js/sdk-react";
 import {initUtils} from "@tma.js/sdk";
 import {getUserAvatar} from "../../utils/helpers";
+import {useAppDispatch, useAppSelector} from "../../hooks/redux.ts";
+import {ReferralsSlice} from "../../store/reducers/ReferralsSlice.ts";
+import ReferralsListSkeleton from "../../components/Skeletons/ReferralsListSkeleton.tsx";
 
 const FriendsPage = () => {
-    const [friends, setFriends] = useState([]);
     const [isCopied, setIsCopied] = useState<boolean>(false);
+    const referrals = useAppSelector(state => state.ReferralsReducer);
 
     const { initData } = retrieveLaunchParams();
     const utils = initUtils();
 
+    const dispatch = useAppDispatch();
+    const { setReferrals, setReferralsCount } = ReferralsSlice.actions;
+
     const getReferrals = async () => {
         try {
             const res = await ReferralService.getReferrals()
-            setFriends(res.data.referrals)
+            dispatch(setReferrals(res.data.referrals))
+            dispatch(setReferralsCount(res.data.referral_count))
             console.log(res);
         }catch (e) {
             //
@@ -54,25 +61,26 @@ const FriendsPage = () => {
                 </div>
 
                 <div className={styles.friends_body}>
-                    { friends.length > 0 ?
+                    { !referrals.is_loaded ? <ReferralsListSkeleton /> : ''}
+                    { referrals.is_loaded && referrals.count > 0 ?
                         <div className={styles.friends_list}>
-                            {friends.map((friend) => (
+                            {referrals.referrals.map((friend) => (
                                 <div className={styles.friends_item} key={friend.id}>
                                     {friend.user.photo_uploaded ?
                                         <img draggable={false} src={getUserAvatar(friend.user.telegram_id)}/>
                                         :
-                                        <img draggable={false} src="/avatar-empty.png"/>
+                                        <img draggable={false} src="/avatar-empty.png" />
                                     }
                                     <span>{friend.user.username ? friend.user.username : friend.user.first_name}</span>
                                 </div>
                             ))}
                         </div>
-                        :
+                        : '' }
+                    {referrals.is_loaded && referrals.count == 0 ?
                         <div className={styles.friends_empty}>
                             <span>You didn't <br/> invite your friends</span>
                             <img src="/cry_duck.svg" alt=""/>
-                        </div>
-                    }
+                        </div> : ''}
                 </div>
             </div>
         </div>
