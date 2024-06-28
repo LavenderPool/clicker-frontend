@@ -6,10 +6,10 @@ import {getUserAvatar} from "../../utils/helpers";
 
 const UserComponent = () => {
     const userData = useAppSelector(state => state.UserReducer)
-    //
-    useEffect(() => {
 
+    useEffect(() => {
         if(userData.is_loaded){
+            console.log(userData);
         }
     }, [userData.is_loaded])
 
@@ -26,7 +26,7 @@ const UserComponent = () => {
                 </div>
                 <div className={styles.user_info}>
                     <span className={styles.user_name}>
-                        {userData.user.first_name}
+                        {userData.user.username ? userData.user.username : userData.user.first_name}
                     </span>
                     <div className={styles.user_balance}>
                         <img src="/boom.png" alt=""/>

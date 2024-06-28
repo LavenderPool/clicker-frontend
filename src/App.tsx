@@ -18,7 +18,6 @@ const App = () => {
     const getUserInfo = async () => {
         try {
             const res = await UserService.getUserInfo()
-            console.log(res);
             dispatch(setUser(res.data))
         }catch (e) {
             console.log(e);
