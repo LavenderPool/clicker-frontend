@@ -14,3 +14,7 @@ interface UserModule {
     created_at: string,
     updated_at: string,
 }
+
+interface BalanceModule {
+    balance: number,
+}
