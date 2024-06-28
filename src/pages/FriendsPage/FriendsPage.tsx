@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import ReferralService from "../../services/ReferralService";
 import {retrieveLaunchParams} from "@tma.js/sdk-react";
 import {initUtils} from "@tma.js/sdk";
-import {getUserAvatar} from "../../utils/helpers";
+import {getShareUrl, getUserAvatar} from "../../utils/helpers";
 import {useAppDispatch, useAppSelector} from "../../hooks/redux.ts";
 import {ReferralsSlice} from "../../store/reducers/ReferralsSlice.ts";
 import ReferralsListSkeleton from "../../components/Skeletons/ReferralsListSkeleton.tsx";
@@ -12,7 +12,7 @@ const FriendsPage = () => {
     const [isCopied, setIsCopied] = useState<boolean>(false);
     const referrals = useAppSelector(state => state.ReferralsReducer);
 
-    const { initData } = retrieveLaunchParams();
+    const { initData} = retrieveLaunchParams();
     const utils = initUtils();
 
     const dispatch = useAppDispatch();
@@ -30,8 +30,7 @@ const FriendsPage = () => {
     }
 
     const copyToClipboard = () => {
-        const invite_link = `${import.meta.env.VITE_TELEGRAM_LINK}?start=${initData.user.id}`
-        navigator.clipboard.writeText(invite_link);
+        navigator.clipboard.writeText(getShareUrl(initData));
         setIsCopied(true)
         setTimeout(() => {
             setIsCopied(false)
@@ -39,8 +38,7 @@ const FriendsPage = () => {
     }
 
     const shareLink = () => {
-        const invite_link = `${import.meta.env.VITE_TELEGRAM_LINK}?start=${initData.user.id}`
-        utils.shareURL(invite_link, 'Look! Some cool app here!');
+        utils.shareURL(getShareUrl(initData), 'Look! Some cool app here!');
     }
     useEffect(() => {
         getReferrals()
@@ -64,7 +62,7 @@ const FriendsPage = () => {
                     { !referrals.is_loaded ? <ReferralsListSkeleton /> : ''}
                     { referrals.is_loaded && referrals.count > 0 ?
                         <div className={styles.friends_list}>
-                            {referrals.referrals.map((friend) => (
+                            {referrals.referrals && referrals.referrals.map((friend) => (
                                 <div className={styles.friends_item} key={friend.id}>
                                     {friend.user.photo_uploaded ?
                                         <img draggable={false} src={getUserAvatar(friend.user.telegram_id)}/>

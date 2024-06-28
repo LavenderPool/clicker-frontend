@@ -15,10 +15,10 @@ const UserComponent = () => {
 
     return (
         <>
-            {userData.is_loaded ?
+            {userData && userData.is_loaded ?
             <div className={styles.user}>
                 <div className={styles.user_avatar}>
-                    {userData.user.photo_uploaded ?
+                    {userData.user && userData.user.photo_uploaded ?
                         <img draggable={false} src={getUserAvatar(userData.user.telegram_id)} />
                         :
                         <img draggable={false} src="/avatar-empty.png"/>
@@ -26,7 +26,9 @@ const UserComponent = () => {
                 </div>
                 <div className={styles.user_info}>
                     <span className={styles.user_name}>
-                        {userData.user.username ? userData.user.username : userData.user.first_name}
+                        {userData.user && userData.user.username ? userData.user.username :
+                            userData.user ? userData.user.first_name : ''
+                        }
                     </span>
                     <div className={styles.user_balance}>
                         <img src="/boom.png" alt=""/>

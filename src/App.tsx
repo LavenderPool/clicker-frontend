@@ -25,7 +25,7 @@ const App = () => {
     }
 
     useEffect(() => {
-        if(initDataRaw.length > 0){
+        if(initDataRaw && initDataRaw.length > 0){
             postEvent('web_app_expand');
             getUserInfo()
         }
