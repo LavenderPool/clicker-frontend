@@ -1,4 +1,6 @@
-interface ReferralModule {
+import {UserModule} from "./UserModule";
+
+export interface ReferralModule {
     id: number,
     user_id: number,
     referred_by: number,

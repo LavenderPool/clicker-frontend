@@ -1,4 +1,4 @@
-interface UserModule {
+export interface UserModule {
     id: number,
     first_name: string,
     is_premium: boolean,
@@ -15,6 +15,6 @@ interface UserModule {
     updated_at: string,
 }
 
-interface BalanceModule {
+export interface BalanceModule {
     balance: number,
 }

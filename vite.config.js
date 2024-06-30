@@ -1,9 +1,9 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import svgr from "vite-plugin-svgr"
-import mkcert from'vite-plugin-mkcert'
+import mkcert from 'vite-plugin-mkcert'
 
-export default defineConfig(({command, mode}) => {
+export default defineConfig(({command}) => {
     if(command == "serve"){
         return {
             plugins: [

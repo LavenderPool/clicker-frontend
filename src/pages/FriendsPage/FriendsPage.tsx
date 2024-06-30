@@ -9,28 +9,32 @@ import {ReferralsSlice} from "../../store/reducers/ReferralsSlice.ts";
 import ReferralsListSkeleton from "../../components/Skeletons/ReferralsListSkeleton.tsx";
 
 const FriendsPage = () => {
+    const [isLoaded, setIsLoaded] = useState<boolean>(false);
+    const [shareUrl, setShareUrl] = useState<string>('');
     const [isCopied, setIsCopied] = useState<boolean>(false);
     const referrals = useAppSelector(state => state.ReferralsReducer);
 
-    const { initData} = retrieveLaunchParams();
     const utils = initUtils();
 
     const dispatch = useAppDispatch();
-    const { setReferrals, setReferralsCount } = ReferralsSlice.actions;
+    const { setReferrals, setReferralsCount, setInviteCode } = ReferralsSlice.actions;
 
     const getReferrals = async () => {
         try {
             const res = await ReferralService.getReferrals()
             dispatch(setReferrals(res.data.referrals))
             dispatch(setReferralsCount(res.data.referral_count))
+            dispatch(setInviteCode(res.data.invite_code))
+            setShareUrl(getShareUrl(res.data.invite_code))
+            setIsLoaded(true)
             console.log(res);
         }catch (e) {
-            //
+            console.log(e);
         }
     }
 
     const copyToClipboard = () => {
-        navigator.clipboard.writeText(getShareUrl(initData));
+        navigator.clipboard.writeText(shareUrl);
         setIsCopied(true)
         setTimeout(() => {
             setIsCopied(false)
@@ -38,7 +42,7 @@ const FriendsPage = () => {
     }
 
     const shareLink = () => {
-        utils.shareURL(getShareUrl(initData), 'Look! Some cool app here!');
+        utils.shareURL(shareUrl, 'Look! Some cool app here!');
     }
     useEffect(() => {
         getReferrals()
@@ -51,7 +55,7 @@ const FriendsPage = () => {
                     Friends
                 </div>
 
-                <div className={styles.friends_buttons}>
+                <div className={`${styles.friends_buttons} ${!isLoaded ? 'disabled' : ''}`}>
                     <div className={styles.friends_button} onClick={copyToClipboard}>
                         {isCopied ? 'Copied!' : 'Copy'}
                     </div>

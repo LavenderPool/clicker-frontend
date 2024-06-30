@@ -31,7 +31,7 @@ const UserComponent = () => {
                         }
                     </span>
                     <div className={styles.user_balance}>
-                        <img src="/boom.png" alt=""/>
+                        <img draggable={false} src="/boom.png" alt=""/>
                         { setDecimalBalance(userData.balance) }
                     </div>
                 </div>

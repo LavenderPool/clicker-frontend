@@ -1,9 +1,11 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {ReferralModule} from "../../models/ReferralModule";
 
 interface ReferralState {
     referrals?: ReferralModule[],
     is_loaded: boolean,
     count: number,
+    inviteCode?: string
 }
 
 const initialState: ReferralState = {
@@ -21,6 +23,9 @@ export const ReferralsSlice = createSlice({
         },
         setReferralsCount(state, action:PayloadAction<number>){
             state.count = action.payload
+        },
+        setInviteCode(state, action:PayloadAction<string>){
+            state.inviteCode = action.payload
         }
     }
 })

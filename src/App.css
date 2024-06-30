@@ -29,3 +29,26 @@ body{
 .container{
   padding: 20px;
 }
+.black_toast{
+  background-color: #222!important;
+  color: #fff!important;
+}
+*::-webkit-scrollbar {
+  display: none;
+}
+.balance-anim{
+  animation: 0.2s ease-in balanceAnimation;
+}
+@keyframes balanceAnimation {
+  0%{
+    opacity: 1;
+  }
+  10%{
+    transform: scale(0.9);
+    opacity: 0.5;
+  }
+  100%{
+    transform: scale(1);
+    opacity: 1;
+  }
+}

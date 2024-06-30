@@ -17,6 +17,11 @@
         display: flex;
         font-size: 20px;
         font-weight: 700;
+
+        &:global(.disabled){
+            opacity: 0.3;
+            pointer-events: none;
+        }
     }
     &_button{
         width: 100%;

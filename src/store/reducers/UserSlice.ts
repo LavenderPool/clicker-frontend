@@ -1,8 +1,10 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {UserModule} from "../../models/UserModule";
 
 interface UserState {
     user?: UserModule,
-    balance: number
+    balance: number,
+    click_price?: number,
     is_loaded: boolean,
 }
 
@@ -19,10 +21,27 @@ export const UserSlice = createSlice({
             const data = action.payload
             state.user = data.user
             state.balance = data.balance
-            state.is_loaded = true
+            state.click_price = data.click_price
         },
-        incrementClick(state, action:PayloadAction<number>){
+        setIsLoadedTrue(state){
+          state.is_loaded = true
+        },
+        addClickToBalance(state){
+          state.balance += state.click_price
+        },
+        removeClickFromBalance(state){
+            state.balance -= state.click_price
+        },
+        incrementBalance(state, action:PayloadAction<number>){
             state.balance += action.payload;
+        },
+        decrementBalance(state, action:PayloadAction<number>){
+            const balances = document.getElementById('balance-decrement');
+            balances.classList.remove('balance-anim')
+            state.balance -= action.payload
+            setTimeout(() => {
+                balances.classList.add('balance-anim')
+            }, 100)
         }
     }
 })

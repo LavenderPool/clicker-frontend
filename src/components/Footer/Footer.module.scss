@@ -1,14 +1,24 @@
+.pluck{
+    margin-top: 100px;
+}
 .footer{
     position: fixed;
-    padding: 20px;
-    bottom: 0px;
+    bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: 280px;
     max-height: fit-content;
-    display: flex;
-    justify-content: space-between;
     user-select: none;
+    background: #000;
+    width: 100vw;
+
+    &_body{
+        padding: 10px 20px;
+        width: 280px;
+        margin: auto;
+        display: flex;
+        justify-content: space-between;
+    }
+
 
     &_link{
         display: flex;
