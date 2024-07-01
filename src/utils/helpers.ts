@@ -6,7 +6,9 @@ export const getUserAvatar = (telegram_id: number) => {
 }
 
 export const setDecimalBalance = (balance: number) => {
-    return (balance / 100).toFixed(1);
+    const result = balance / 100;
+    const fixedResult = Math.floor(result * 10) / 10;
+    return fixedResult % 1 === 0 ? `${fixedResult}.0` : fixedResult.toString();
 }
 
 export const getShareUrl = (code: string) => {

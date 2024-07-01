@@ -3,25 +3,37 @@ import ClickService from "../../services/ClickService.ts";
 import {useAppDispatch, useAppSelector} from "../../hooks/redux.ts";
 import styles from './MainPage.module.scss'
 import {UserSlice} from "../../store/reducers/UserSlice.ts";
-import {sendErrorMessage} from "../../utils/helpers";
+import {sendErrorMessage, setDecimalBalance} from "../../utils/helpers";
 import {useState} from "react";
+import EnergySkeleton from "../../components/Skeletons/EnergySkeleton";
+import ButtonSkeleton from "../../components/Skeletons/ButtonSkeleton";
+import CanEarnSkeleton from "../../components/Skeletons/CanEarnSkeleton";
 
 const MainPage = () => {
     const [clickerState, setClickerState] = useState<boolean>(true);
     const dispatch = useAppDispatch();
-    const { removeClickFromBalance, addClickToBalance } = UserSlice.actions;
+    const { removeClickFromBalance, addClickToBalance, setEnergy } = UserSlice.actions;
     const userData = useAppSelector(state => state.UserReducer)
 
     const doClick = async () => {
+        if(userData.energy < 1){
+            setClickerState(false)
+            return 0
+        }
         if(!clickerState || !userData.is_loaded){
             return 0;
         }
         dispatch(addClickToBalance())
         try {
-            await ClickService.click()
+            const res = await ClickService.click()
+            dispatch(setEnergy(res.data.energy))
         }catch (e) {
-            dispatch(removeClickFromBalance())
-            sendErrorMessage('hello')
+            if(e.response.data.status == 'no energy'){
+                dispatch(removeClickFromBalance())
+                dispatch(setEnergy(e.response.data.energy))
+                return sendErrorMessage('No energy')
+            }
+            sendErrorMessage('Server error')
             setClickerState(false)
             setTimeout(() => {
                 setClickerState(true)
@@ -34,8 +46,38 @@ const MainPage = () => {
         <div className={"container"}>
             <UserComponent />
 
-            <button onClick={() => doClick()} className={styles.button}>
-            </button>
+            <div className={styles.main_top}>
+                <span className={styles.can_earn}>You can earn</span>
+                <div className={styles.can_earn_counter}>
+                    <img draggable={false} src="/boom.png" alt=""/>
+                    {userData.is_loaded ?
+                        <span>
+                            {setDecimalBalance(userData.can_earn)}
+                        </span>
+                        : <CanEarnSkeleton />
+                    }
+                </div>
+
+            </div>
+
+            {userData.is_loaded ?
+                <div
+                    className={styles.energy_bar}
+                    style={{backgroundColor: `${userData.energy < 1? '#444': ''}`}}
+                >
+                <span
+                    className={styles.energy}
+                    style={{width: `${userData.energy / 2}%`}}
+                ></span>
+                </div> : <EnergySkeleton /> }
+
+            {userData.is_loaded ?
+                <button
+                    onClick={() => doClick()}
+                    className={`${styles.button} ${userData.energy < 1 ? 'no-energy' : ''}`}
+                >
+                </button>
+            : <ButtonSkeleton />}
         </div>
     );
 };

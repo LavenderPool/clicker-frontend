@@ -1,14 +1,16 @@
 .button{
-  margin: 50px auto 0 auto;
+  margin: 0 auto;
   display: flex;
+  position: relative;
+  z-index: 2;
 
   background-image: url("/tap.png");
   background-repeat: no-repeat;
   background-position: 50%;
   background-size: contain;
 
-  height: 250px;
-  width: 250px;
+  height: 200px;
+  width: 200px;
 
   align-items: center;
   justify-content: center;
@@ -16,8 +18,56 @@
   border: none;
   outline: none;
   transition-duration: 0.2s;
+  cursor: pointer;
   &:active{
     transform: scale(0.98);
     outline: 5px solid rgba(255, 243, 35, 0.3);
+  }
+
+  &:global(.no-energy){
+    cursor: none;
+    pointer-events: none;
+    background-image: url("/tap_empty.png");
+  }
+}
+
+
+.energy_bar{
+  border-radius: 8px;
+  background: #111;
+  height: 12px;
+  margin: 0 0 30px 0;
+}
+.energy{
+  background: #ff4646;
+  border-radius: 8px;
+  height: 12px;
+  display: block;
+  width: 10px;
+  transition-duration: 0.2s;
+}
+
+.main_top{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.can_earn{
+  font-weight: 700;
+  margin-bottom: 5px;
+  user-select: none;
+  &_counter{
+    display: flex;
+    align-items: center;
+    font-size: 36px;
+    font-weight: 700;
+    user-select: none;
+  }
+  &_counter img{
+    width: 50px;
+    height: 50px;
   }
 }

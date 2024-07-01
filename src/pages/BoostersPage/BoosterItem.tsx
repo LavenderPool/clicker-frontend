@@ -12,32 +12,25 @@ interface Props {
     type: BoosterNames
 }
 const TimeBooster = ({type}:Props) => {
-    const [nextLvlPrice, setNextLvlPrice] = useState<number>(0)
-    const [currentLvl, setCurrentLvl] = useState<number>(0)
-    const [lvlIsMax, setLvlIsMax] = useState<boolean>(false)
     const [popupVisible, setPopupVisible] = useState<boolean>(false);
     const dispatch = useAppDispatch();
     const { upgradeLvl } = BoostersSlice.actions;
-    const { decrementBalance } = UserSlice.actions;
+    const { decrementBalance, setClickPrice, setEnergy } = UserSlice.actions;
     const userBalance = useAppSelector(state => state.UserReducer.balance)
     const BoostersData = useAppSelector(state => state.BoostersReducer)
-
-    useEffect(() => {
-        if(BoostersData.prices){
-
-            setCurrentLvl(BoostersData[type])
-            setNextLvlPrice(BoostersData.prices[type][currentLvl + 1])
-
-            if(BoostersData[type] == 4){
-                setLvlIsMax(true)
-            }
-        }
-    }, [BoostersData])
+    const currentLvl = BoostersData[type];
+    const nextLvlPrice = BoostersData.prices[type][currentLvl + 1];
+    const lvlIsMax = BoostersData[type] == 4 ? true : false;
 
     const upgradeBooster = async () => {
         try {
-            await BoosterService.upgradeBooster(type)
+            const res = await BoosterService.upgradeBooster(type)
             dispatch(upgradeLvl(type))
+            const energy = res.data.energy
+            if(energy != -1){
+                dispatch(setEnergy(energy))
+            }
+            dispatch(setClickPrice(res.data.click_price))
             dispatch(decrementBalance(nextLvlPrice))
             setPopupVisible(false)
         }catch (e) {
