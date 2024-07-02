@@ -17,13 +17,18 @@ export default defineConfig(({command}) => {
         }
     }else{
         return {
-            plugins: [
-                react(),
-                svgr(),
-            ],
+            plugins: [react()],
             build: {
-                target: 'esnext'
-            }
+                outDir: 'dist',
+                rollupOptions: {
+                    input: 'src/main.tsx',
+                },
+            },
+            resolve: {
+                alias: {
+                    '@': '/src',
+                },
+            },
         }
     }
 })
