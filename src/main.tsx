@@ -6,10 +6,10 @@ const store = setupStore();
 import {Provider} from "react-redux";
 import './i18'
 
-ReactDOM.createRoot(document.getElementById('root').render(
+ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
         <Provider store={store}>
             <App />
         </Provider>
     </React.StrictMode>
-))
+)
