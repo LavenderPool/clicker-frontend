@@ -26,7 +26,7 @@ export default defineConfig(({command}) => {
             build: {
                 outDir: 'dist',
                 rollupOptions: {
-                    input: 'src/main.tsx',
+                    input: 'src/main.jsx',
                 },
             },
             resolve: {
