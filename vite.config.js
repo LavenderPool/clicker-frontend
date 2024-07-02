@@ -17,7 +17,9 @@ export default defineConfig(({command}) => {
         }
     }else{
         return {
-            plugins: [react()],
+            plugins: [
+                react(),
+            ],
             build: {
                 outDir: 'dist',
                 rollupOptions: {

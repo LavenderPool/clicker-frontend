@@ -1,7 +1,6 @@
 import './App.css'
 import {BrowserRouter} from "react-router-dom";
 import AppRouter from "./components/AppRouter";
-import eruda from 'eruda';
 import {useEffect} from "react";
 import UserService from "./services/UserService";
 import {retrieveLaunchParams, postEvent} from "@tma.js/sdk-react";
@@ -10,7 +9,6 @@ import {UserSlice} from "./store/reducers/UserSlice";
 import {Toaster} from 'react-hot-toast';
 
 
-eruda.init();
 const App = () => {
     const { initDataRaw } = retrieveLaunchParams();
     const dispatch = useAppDispatch();
