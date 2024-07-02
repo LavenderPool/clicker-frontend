@@ -7,7 +7,7 @@ interface UserState {
     click_price?: number,
     is_loaded: boolean,
     energy?: number,
-    can_earn?:number,
+    hours?: number,
 }
 
 const initialState: UserState = {
@@ -25,7 +25,10 @@ export const UserSlice = createSlice({
             state.balance = data.balance
             state.click_price = data.click_price
             state.energy = data.energy
-            state.can_earn = data.can_earn
+            state.hours = data.hours
+        },
+        setHours(state, action:PayloadAction<number>){
+          state.hours = action.payload
         },
         setClickPrice(state, action:PayloadAction<number>){
             state.click_price = action.payload
@@ -42,6 +45,12 @@ export const UserSlice = createSlice({
         },
         setEnergy(state, action:PayloadAction<number>){
             state.energy = action.payload
+        },
+        incrementEnergy(state, action:PayloadAction){
+            state.energy = parseFloat(state.energy) + parseFloat(action.payload)
+        },
+        editPublicName(state, action:PayloadAction<string>){
+            state.user.public_name = action.payload
         },
         decrementBalance(state, action:PayloadAction<number>){
             const balances = document.getElementById('balance-decrement');

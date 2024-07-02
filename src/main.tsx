@@ -4,6 +4,7 @@ import App from './App.tsx'
 import {setupStore} from "./store/store";
 const store = setupStore();
 import {Provider} from "react-redux";
+import './i18'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

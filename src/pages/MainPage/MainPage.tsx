@@ -3,13 +3,15 @@ import ClickService from "../../services/ClickService.ts";
 import {useAppDispatch, useAppSelector} from "../../hooks/redux.ts";
 import styles from './MainPage.module.scss'
 import {UserSlice} from "../../store/reducers/UserSlice.ts";
-import {sendErrorMessage, setDecimalBalance} from "../../utils/helpers";
+import {howMuchCanEarn, sendErrorMessage} from "../../utils/helpers";
 import {useState} from "react";
 import EnergySkeleton from "../../components/Skeletons/EnergySkeleton";
 import ButtonSkeleton from "../../components/Skeletons/ButtonSkeleton";
 import CanEarnSkeleton from "../../components/Skeletons/CanEarnSkeleton";
+import {useTranslation} from "react-i18next";
 
 const MainPage = () => {
+    const { t, i18n } = useTranslation();
     const [clickerState, setClickerState] = useState<boolean>(true);
     const dispatch = useAppDispatch();
     const { removeClickFromBalance, addClickToBalance, setEnergy } = UserSlice.actions;
@@ -21,12 +23,13 @@ const MainPage = () => {
             return 0
         }
         if(!clickerState || !userData.is_loaded){
-            return 0;
+            return 0
         }
         dispatch(addClickToBalance())
+        dispatch(setEnergy(userData.energy-1))
+
         try {
-            const res = await ClickService.click()
-            dispatch(setEnergy(res.data.energy))
+            await ClickService.click()
         }catch (e) {
             if(e.response.data.status == 'no energy'){
                 dispatch(removeClickFromBalance())
@@ -47,12 +50,12 @@ const MainPage = () => {
             <UserComponent />
 
             <div className={styles.main_top}>
-                <span className={styles.can_earn}>You can earn</span>
+                <span className={styles.can_earn}>{ t('you_can_earn')}</span>
                 <div className={styles.can_earn_counter}>
                     <img draggable={false} src="/boom.png" alt=""/>
                     {userData.is_loaded ?
                         <span>
-                            {setDecimalBalance(userData.can_earn)}
+                            {howMuchCanEarn(userData.energy, userData.click_price)}
                         </span>
                         : <CanEarnSkeleton />
                     }
@@ -67,7 +70,7 @@ const MainPage = () => {
                 >
                 <span
                     className={styles.energy}
-                    style={{width: `${userData.energy / 2}%`}}
+                    style={{width: `${userData.energy >= 1 ? userData.energy / 2 : 0}%`}}
                 ></span>
                 </div> : <EnergySkeleton /> }
 

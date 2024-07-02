@@ -55,7 +55,11 @@ const FriendsPage = () => {
                     Friends
                 </div>
 
-                <div className={`${styles.friends_buttons} ${!isLoaded ? 'disabled' : ''}`}>
+                <div className={styles.friends_subtitle}>
+                    You will receive 20% of your friend's earned currency
+                </div>
+
+                <div className={`${styles.friends_buttons} ${!referrals.inviteCode ? 'disabled' : ''}`}>
                     <div className={styles.friends_button} onClick={copyToClipboard}>
                         {isCopied ? 'Copied!' : 'Copy'}
                     </div>

@@ -3,18 +3,20 @@ import {BrowserRouter} from "react-router-dom";
 import AppRouter from "./components/AppRouter";
 
 import eruda from 'eruda';
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import UserService from "./services/UserService";
 import {retrieveLaunchParams, postEvent} from "@tma.js/sdk-react";
-import {useAppDispatch} from "./hooks/redux";
+import {useAppDispatch, useAppSelector} from "./hooks/redux";
 import {UserSlice} from "./store/reducers/UserSlice";
-import {toast, Toaster, useToasterStore} from 'react-hot-toast';
+import {Toaster} from 'react-hot-toast';
 
 eruda.init();
 const App = () => {
     const { initDataRaw } = retrieveLaunchParams();
     const dispatch = useAppDispatch();
-    const { setUser, setIsLoadedTrue } = UserSlice.actions;
+    const { setUser, setIsLoadedTrue, incrementEnergy } = UserSlice.actions;
+    const userData = useAppSelector(state => state.UserReducer);
+
 
     const getUserInfo = async () => {
         try {
@@ -25,6 +27,28 @@ const App = () => {
             console.log(e);
         }
     }
+
+    useEffect(() => {
+        if (userData.hours && userData.energy ) {
+            const userCircleSeconds = userData.hours * 3600;
+            const oneEnergySeconds = userCircleSeconds / 200 - 0.005;
+            let energyInSecond = 1 / oneEnergySeconds;
+            const energy = parseFloat(userData.energy)
+
+            const intervalId = setInterval(() => {
+                if (energy < 200) {
+                    let newEnergy = parseFloat(energy) + parseFloat(energyInSecond);
+                    if (newEnergy > 200) {
+                        newEnergy = 200
+                    }
+                    const for_dispatch = newEnergy - energy
+                    dispatch(incrementEnergy(for_dispatch));
+                }
+            }, 1000);
+
+            return () => clearInterval(intervalId);
+        }
+    }, [userData.hours, userData.energy]);
 
     useEffect(() => {
         if(initDataRaw && initDataRaw.length > 0){
