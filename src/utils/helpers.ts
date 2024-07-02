@@ -1,5 +1,4 @@
-import {InitDataParsed} from "@tma.js/sdk-react";
-import toast, {useToasterStore} from "react-hot-toast";
+import toast from "react-hot-toast";
 
 export const getUserAvatar = (telegram_id: number) => {
     return `${import.meta.env.VITE_BACKEND_URL}/storage/avatars/${telegram_id}.jpg`

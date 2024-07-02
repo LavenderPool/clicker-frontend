@@ -1,14 +1,14 @@
 import './App.css'
 import {BrowserRouter} from "react-router-dom";
 import AppRouter from "./components/AppRouter";
-
 import eruda from 'eruda';
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import UserService from "./services/UserService";
 import {retrieveLaunchParams, postEvent} from "@tma.js/sdk-react";
 import {useAppDispatch, useAppSelector} from "./hooks/redux";
 import {UserSlice} from "./store/reducers/UserSlice";
 import {Toaster} from 'react-hot-toast';
+
 
 eruda.init();
 const App = () => {
@@ -33,10 +33,12 @@ const App = () => {
             const userCircleSeconds = userData.hours * 3600;
             const oneEnergySeconds = userCircleSeconds / 200 - 0.005;
             let energyInSecond = 1 / oneEnergySeconds;
+            //@ts-ignore
             const energy = parseFloat(userData.energy)
 
             const intervalId = setInterval(() => {
                 if (energy < 200) {
+                    //@ts-ignore
                     let newEnergy = parseFloat(energy) + parseFloat(energyInSecond);
                     if (newEnergy > 200) {
                         newEnergy = 200
@@ -58,8 +60,8 @@ const App = () => {
     }, [initDataRaw])
     return (
         <BrowserRouter>
-            <AppRouter/>
-            <Toaster />
+                <AppRouter/>
+                <Toaster />
         </BrowserRouter>
     )
 }

@@ -1,6 +1,6 @@
 import styles from "./BoostersPage.module.scss";
 import Popup from "../../components/Popup/Popup";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {useAppDispatch, useAppSelector} from "../../hooks/redux";
 import {setDecimalBalance} from "../../utils/helpers";
 import BoosterService from "../../services/BoosterService";
@@ -20,6 +20,7 @@ const TimeBooster = ({type}:Props) => {
     const userBalance = useAppSelector(state => state.UserReducer.balance)
     const BoostersData = useAppSelector(state => state.BoostersReducer)
     const currentLvl = BoostersData[type];
+    //@ts-ignore
     const nextLvlPrice = BoostersData.prices[type][currentLvl + 1];
     const lvlIsMax = BoostersData[type] == 4 ? true : false;
 

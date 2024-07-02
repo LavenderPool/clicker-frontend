@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {BoosterNames, BoosterState} from "../../models/BoosterModule";
+import {BoosterNames, BoosterPrices, BoosterState} from "../../models/BoosterModule";
 
 interface SetBoostersPayload {
     power: number;
@@ -8,6 +8,8 @@ interface SetBoostersPayload {
 
 const initialState: BoosterState = {
     is_loaded: false,
+    power: 0,
+    time: 0
 }
 
 export const BoostersSlice = createSlice({
@@ -18,7 +20,7 @@ export const BoostersSlice = createSlice({
             state.power = action.payload.power;
             state.time = action.payload.time;
         },
-        setPrices(state, action:PayloadAction<BoosterState.prices>){
+        setPrices(state, action:PayloadAction<BoosterPrices>){
             state.prices = action.payload
             state.is_loaded = true
         },

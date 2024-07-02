@@ -5,7 +5,7 @@ import UserComponentSkeleton from "../Skeletons/UserComponentSkeleton";
 import {getUserAvatar, sendErrorMessage, sendSuccessMessage, setDecimalBalance} from "../../utils/helpers";
 import Popup from "../Popup/Popup";
 import {languages} from "../../utils/consts";
-import UserService, {LanguageCodes} from "../../services/UserService";
+import UserService from "../../services/UserService";
 import {UserSlice} from "../../store/reducers/UserSlice";
 
 const UserComponent = () => {
@@ -16,11 +16,11 @@ const UserComponent = () => {
     const userData = useAppSelector(state => state.UserReducer)
     const { editPublicName } = UserSlice.actions;
 
-    const [publicName, setPublicName] = useState<string | null>()
-    const [languageCode, setLanguageCode] = useState<LanguageCodes>('en')
+    const [publicName, setPublicName] = useState<string>('')
+    const [languageCode, setLanguageCode] = useState<string>('en')
 
     useEffect(() => {
-        if(userData.is_loaded){
+        if(userData.is_loaded && userData.user){
             console.log(userData);
             setPublicName(userData.user.public_name)
             setLanguageCode(userData.user.selected_language_code)

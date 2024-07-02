@@ -4,12 +4,13 @@ interface Prices {
     3: number,
 }
 export type BoosterNames = 'time' | 'power';
+export interface BoosterPrices {
+    power: Prices,
+    time: Prices,
+}
 export interface BoosterState {
-    power?: number,
-    time?: number,
+    power: number,
+    time: number,
     is_loaded: boolean,
-    prices?: {
-        power: Prices,
-        time: Prices,
-    }
+    prices?: BoosterPrices
 }

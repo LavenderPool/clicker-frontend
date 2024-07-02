@@ -1,7 +1,6 @@
 import styles from './FriendsPage.module.scss'
 import {useEffect, useState} from "react";
 import ReferralService from "../../services/ReferralService";
-import {retrieveLaunchParams} from "@tma.js/sdk-react";
 import {initUtils} from "@tma.js/sdk";
 import {getShareUrl, getUserAvatar} from "../../utils/helpers";
 import {useAppDispatch, useAppSelector} from "../../hooks/redux.ts";
@@ -9,7 +8,6 @@ import {ReferralsSlice} from "../../store/reducers/ReferralsSlice.ts";
 import ReferralsListSkeleton from "../../components/Skeletons/ReferralsListSkeleton.tsx";
 
 const FriendsPage = () => {
-    const [isLoaded, setIsLoaded] = useState<boolean>(false);
     const [shareUrl, setShareUrl] = useState<string>('');
     const [isCopied, setIsCopied] = useState<boolean>(false);
     const referrals = useAppSelector(state => state.ReferralsReducer);
@@ -26,7 +24,6 @@ const FriendsPage = () => {
             dispatch(setReferralsCount(res.data.referral_count))
             dispatch(setInviteCode(res.data.invite_code))
             setShareUrl(getShareUrl(res.data.invite_code))
-            setIsLoaded(true)
             console.log(res);
         }catch (e) {
             console.log(e);

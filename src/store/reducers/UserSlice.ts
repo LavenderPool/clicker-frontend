@@ -4,15 +4,19 @@ import {UserModule} from "../../models/UserModule";
 interface UserState {
     user?: UserModule,
     balance: number,
-    click_price?: number,
+    click_price: number,
     is_loaded: boolean,
-    energy?: number,
-    hours?: number,
+    energy: number,
+    hours: number,
 }
 
 const initialState: UserState = {
     is_loaded: false,
     balance: 0,
+    user: undefined,
+    click_price: 0,
+    energy: 0,
+    hours: 0
 }
 
 export const UserSlice = createSlice({
@@ -38,7 +42,6 @@ export const UserSlice = createSlice({
         },
         addClickToBalance(state){
           state.balance += state.click_price
-          state.can_earn -=state.click_price
         },
         removeClickFromBalance(state){
             state.balance -= state.click_price
@@ -46,19 +49,24 @@ export const UserSlice = createSlice({
         setEnergy(state, action:PayloadAction<number>){
             state.energy = action.payload
         },
-        incrementEnergy(state, action:PayloadAction){
+        incrementEnergy(state, action:PayloadAction<number>){
+            //@ts-ignore
             state.energy = parseFloat(state.energy) + parseFloat(action.payload)
         },
         editPublicName(state, action:PayloadAction<string>){
-            state.user.public_name = action.payload
+            if(state.user){
+                state.user.public_name = action.payload
+            }
         },
         decrementBalance(state, action:PayloadAction<number>){
-            const balances = document.getElementById('balance-decrement');
-            balances.classList.remove('balance-anim')
-            state.balance -= action.payload
-            setTimeout(() => {
-                balances.classList.add('balance-anim')
-            }, 100)
+            const balance = document.getElementById('balance-decrement');
+            if(balance){
+                balance.classList.remove('balance-anim')
+                state.balance -= action.payload
+                setTimeout(() => {
+                    balance.classList.add('balance-anim')
+                }, 100)
+            }
         }
     }
 })

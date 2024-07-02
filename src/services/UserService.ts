@@ -6,7 +6,7 @@ export default class UserService {
         return await $api.get(`user/info`)
     }
 
-    static async updateUser(public_name: string, language_code: LanguageCodes ){
+    static async updateUser(public_name: string, language_code: string ){
         return await $api.post(`user`, {public_name: public_name, language_code: language_code})
     }
 }

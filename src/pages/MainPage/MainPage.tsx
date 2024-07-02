@@ -11,7 +11,7 @@ import CanEarnSkeleton from "../../components/Skeletons/CanEarnSkeleton";
 import {useTranslation} from "react-i18next";
 
 const MainPage = () => {
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
     const [clickerState, setClickerState] = useState<boolean>(true);
     const dispatch = useAppDispatch();
     const { removeClickFromBalance, addClickToBalance, setEnergy } = UserSlice.actions;
@@ -31,8 +31,10 @@ const MainPage = () => {
         try {
             await ClickService.click()
         }catch (e) {
+            //@ts-ignore
             if(e.response.data.status == 'no energy'){
                 dispatch(removeClickFromBalance())
+                //@ts-ignore
                 dispatch(setEnergy(e.response.data.energy))
                 return sendErrorMessage('No energy')
             }
