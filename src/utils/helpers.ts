@@ -39,3 +39,24 @@ export const sendSuccessMessage = (message: string) => {
     })
 
 }
+
+export const calculateEnergyRatio = (energy:number, hoursPerDay:number) => {
+    if (energy <= 0) {
+        return "0m";
+    }
+
+    let minutesPerHour = 60;
+    let totalMinutesPerDay = hoursPerDay * minutesPerHour;
+    let minutes = Math.floor(totalMinutesPerDay * (energy / 200));
+    let hours = Math.floor(minutes / minutesPerHour);
+    minutes %= minutesPerHour;
+
+    if (hours === 0) {
+        return `${minutes}m`;
+    } else if(hours > 0 && minutes >0) {
+        return `${hours}h ${minutes}m`;
+    }else{
+        return `${hours}h`;
+
+    }
+}

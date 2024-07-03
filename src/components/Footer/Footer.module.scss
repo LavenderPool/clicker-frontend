@@ -30,6 +30,8 @@
         outline: none;
         height: fit-content;
         color: unset;
+        max-width: 33%;
+        width: 33%;
         svg{
             fill: var(--footer-deactivite-svg);
             transition-duration: 0.2s;

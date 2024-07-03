@@ -7,8 +7,10 @@ import Popup from "../Popup/Popup";
 import {languages} from "../../utils/consts";
 import UserService from "../../services/UserService";
 import {UserSlice} from "../../store/reducers/UserSlice";
+import {useTranslation} from "react-i18next";
 
 const UserComponent = () => {
+    const { t, i18n } = useTranslation();
     const [settingsModal, setSettingsModal] = useState<boolean>(false)
     const [buttonState, setButtonState] = useState<string>('default')
     const dispatch = useAppDispatch()
@@ -36,6 +38,7 @@ const UserComponent = () => {
         try {
             const res = await UserService.updateUser(publicName, languageCode)
             dispatch(editPublicName(publicName))
+            i18n.changeLanguage(languageCode)
             sendSuccessMessage('Success!')
             console.log(res);
         }catch (e){
@@ -80,9 +83,9 @@ const UserComponent = () => {
             : <UserComponentSkeleton /> }
 
             { userData.is_loaded ?
-                <Popup visible={settingsModal} setVisible={setSettingsModal} header={'settings'}>
+                <Popup visible={settingsModal} setVisible={setSettingsModal} header={ t('settings') }>
                     <label className={styles.settings_input}>
-                        <span>Public username</span>
+                        <span>{ t('public_name') }</span>
                         <input
                             maxLength={16}
                             type="text"
@@ -113,7 +116,7 @@ const UserComponent = () => {
 
                     <button onClick={() => saveUser()} className={styles.settings_save}>
                         {buttonState == 'default' ?
-                            <span>save</span> : <span className={styles.loader}></span>
+                            <span>{ t('save') }</span> : <span className={styles.loader}></span>
                         }
                     </button>
                 </Popup>

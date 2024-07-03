@@ -39,6 +39,13 @@ body{
 .balance-anim{
   animation: 0.2s ease-in balanceAnimation;
 }
+input,
+textarea,
+button,
+select,
+a {
+  -webkit-tap-highlight-color: transparent!important;
+}
 @keyframes balanceAnimation {
   0%{
     opacity: 1;

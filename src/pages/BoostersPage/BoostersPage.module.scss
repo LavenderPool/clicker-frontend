@@ -40,6 +40,7 @@
 
 
 .booster{
+    -webkit-tap-highlight-color: transparent!important;
     display: flex;
     align-items: center;
     margin-top: 20px;
@@ -143,9 +144,11 @@
     &_description{
         padding: 0 20px;
         text-align: center;
-        margin-top: 20px;
+        margin-top: 25px;
         font-size: 18px;
-        font-weight: 700;
+        line-height: 120%;
+        font-weight: 500;
+        margin-bottom: 5px;
     }
 
     &_button{

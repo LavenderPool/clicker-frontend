@@ -7,8 +7,11 @@ import {BoostersSlice} from "../../store/reducers/BoostersSlice";
 import BoosterBalanceSkeleton from "../../components/Skeletons/BoosterBalanceSkeleton";
 import BoosterItemsSkeleton from "../../components/Skeletons/BoosterItemsSkeleton";
 import BoosterItem from "./BoosterItem";
+import {useTranslation} from "react-i18next";
 
 const BoostersPage = () => {
+    const { t } = useTranslation();
+
     const dispatch = useAppDispatch();
     const { setBoosters, setPrices } = BoostersSlice.actions;
     const userData = useAppSelector(state => state.UserReducer)
@@ -34,7 +37,7 @@ const BoostersPage = () => {
         <div className={styles.boosters}>
             <div className={styles.balance}>
                 <div className={styles.balance_title}>
-                    Your balance
+                    { t('your_balance') }
                 </div>
                 { userData.is_loaded ?
                     <div id="balance-decrement" className={styles.balance_amount}>

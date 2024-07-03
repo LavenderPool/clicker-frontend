@@ -1,4 +1,4 @@
-export const en_translation = {
+{
     "you_can_earn": "You can earn",
     "home": "Home",
     "boosters": "Boosters",
@@ -28,5 +28,5 @@ export const en_translation = {
     "power.0-1": "Adds 100 coins for your time interval",
     "power.1-2": "Adds 500 coins for your time interval",
     "power.2-3": "Adds 1000 coins for your time interval",
-    "power.3-4": "Adds 1500 coins for your time interval",
+    "power.3-4": "Adds 1500 coins for your time interval"
 }

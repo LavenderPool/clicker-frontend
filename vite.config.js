@@ -23,17 +23,6 @@ export default defineConfig(({command}) => {
                 react(),
                 tsconfigPaths(),
             ],
-            build: {
-                outDir: 'dist',
-                rollupOptions: {
-                    input: 'src/main.tsx',
-                },
-            },
-            resolve: {
-                alias: {
-                    '@': '/src',
-                },
-            },
         }
     }
 })

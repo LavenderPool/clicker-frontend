@@ -7,6 +7,8 @@ import {retrieveLaunchParams, postEvent} from "@tma.js/sdk-react";
 import {useAppDispatch, useAppSelector} from "./hooks/redux";
 import {UserSlice} from "./store/reducers/UserSlice";
 import {Toaster} from 'react-hot-toast';
+//@ts-ignore
+import i18n from "./i18.js"
 
 
 const App = () => {
@@ -20,6 +22,7 @@ const App = () => {
         try {
             const res = await UserService.getUserInfo()
             dispatch(setUser(res.data))
+            i18n.changeLanguage(res.data.user.selected_language_code);
             dispatch(setIsLoadedTrue())
         }catch (e) {
             console.log(e);

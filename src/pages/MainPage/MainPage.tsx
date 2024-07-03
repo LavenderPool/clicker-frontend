@@ -3,7 +3,7 @@ import ClickService from "../../services/ClickService.ts";
 import {useAppDispatch, useAppSelector} from "../../hooks/redux.ts";
 import styles from './MainPage.module.scss'
 import {UserSlice} from "../../store/reducers/UserSlice.ts";
-import {howMuchCanEarn, sendErrorMessage} from "../../utils/helpers";
+import {calculateEnergyRatio, howMuchCanEarn, sendErrorMessage, setDecimalBalance} from "../../utils/helpers";
 import {useState} from "react";
 import EnergySkeleton from "../../components/Skeletons/EnergySkeleton";
 import ButtonSkeleton from "../../components/Skeletons/ButtonSkeleton";
@@ -17,7 +17,7 @@ const MainPage = () => {
     const { removeClickFromBalance, addClickToBalance, setEnergy } = UserSlice.actions;
     const userData = useAppSelector(state => state.UserReducer)
 
-    const doClick = async () => {
+    const doClick = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         if(userData.energy < 1){
             setClickerState(false)
             return 0
@@ -27,7 +27,7 @@ const MainPage = () => {
         }
         dispatch(addClickToBalance())
         dispatch(setEnergy(userData.energy-1))
-
+        createFloatingNumber(event, userData.click_price);
         try {
             await ClickService.click()
         }catch (e) {
@@ -46,6 +46,24 @@ const MainPage = () => {
         }
 
     }
+
+    const createFloatingNumber = (event:React.MouseEvent<HTMLButtonElement, MouseEvent>, number: number) => {
+        const span = document.createElement('span');
+        span.textContent = `+${setDecimalBalance(number)}`;
+        span.className = styles.floatingNumber;
+        span.style.left = `${event.clientX}px`;
+        span.style.top = `${event.clientY}px`;
+        document.body.appendChild(span);
+
+        setTimeout(() => {
+            span.style.transform = 'translateY(-50px)';
+            span.style.opacity = '0';
+        }, 0);
+
+        setTimeout(() => {
+            span.remove();
+        }, 1000);
+    };
 
     return (
         <div className={"container"}>
@@ -66,19 +84,26 @@ const MainPage = () => {
             </div>
 
             {userData.is_loaded ?
-                <div
-                    className={styles.energy_bar}
-                    style={{backgroundColor: `${userData.energy < 1? '#444': ''}`}}
-                >
-                <span
-                    className={styles.energy}
-                    style={{width: `${userData.energy >= 1 ? userData.energy / 2 : 0}%`}}
-                ></span>
-                </div> : <EnergySkeleton /> }
+                <div>
+                    <div
+                        className={styles.energy_bar}
+                        style={{backgroundColor: `${userData.energy < 1? '#444': ''}`}}
+                    >
+                    <span
+                        className={styles.energy}
+                        style={{width: `${userData.energy >= 1 ? userData.energy / 2 : 0}%`}}
+                    ></span>
+                    </div>
+                    <div className={styles.energy_time}>
+                        <span>{calculateEnergyRatio(userData.energy, userData.hours)}</span>
+                        <span>{userData.hours}h</span>
+                    </div>
+                </div>
+                : <EnergySkeleton /> }
 
             {userData.is_loaded ?
                 <button
-                    onClick={() => doClick()}
+                    onClick={(e) => doClick(e)}
                     className={`${styles.button} ${userData.energy < 1 ? 'no-energy' : ''}`}
                 >
                 </button>

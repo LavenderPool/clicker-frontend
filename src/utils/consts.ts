@@ -5,7 +5,7 @@ export const languages = [
     {
         'short_code': 'ru',
         'name_en': 'Russian',
-        'name': 'Российский',
+        'name': 'Русский',
         'img': './flags/russian.png',
     },
     {

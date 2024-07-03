@@ -2,12 +2,15 @@ import styles from './FriendsPage.module.scss'
 import {useEffect, useState} from "react";
 import ReferralService from "../../services/ReferralService";
 import {initUtils} from "@tma.js/sdk";
-import {getShareUrl, getUserAvatar} from "../../utils/helpers";
+import {getShareUrl, getUserAvatar, setDecimalBalance} from "../../utils/helpers";
 import {useAppDispatch, useAppSelector} from "../../hooks/redux.ts";
 import {ReferralsSlice} from "../../store/reducers/ReferralsSlice.ts";
 import ReferralsListSkeleton from "../../components/Skeletons/ReferralsListSkeleton.tsx";
+import {useTranslation} from "react-i18next";
 
 const FriendsPage = () => {
+    const { t } = useTranslation();
+
     const [shareUrl, setShareUrl] = useState<string>('');
     const [isCopied, setIsCopied] = useState<boolean>(false);
     const referrals = useAppSelector(state => state.ReferralsReducer);
@@ -39,7 +42,7 @@ const FriendsPage = () => {
     }
 
     const shareLink = () => {
-        utils.shareURL(shareUrl, 'Look! Some cool app here!');
+        utils.shareURL(shareUrl, t('friends_link'));
     }
     useEffect(() => {
         getReferrals()
@@ -49,18 +52,18 @@ const FriendsPage = () => {
         <div className={styles.friends}>
             <div className="container">
                 <div className={styles.friends_title}>
-                    Friends
+                    { t('friends') }
                 </div>
 
                 <div className={styles.friends_subtitle}>
-                    You will receive 20% of your friend's earned currency
+                    { t('friends_subtitle') }
                 </div>
 
                 <div className={`${styles.friends_buttons} ${!referrals.inviteCode ? 'disabled' : ''}`}>
                     <div className={styles.friends_button} onClick={copyToClipboard}>
-                        {isCopied ? 'Copied!' : 'Copy'}
+                        {isCopied ? t('copied') : t('copy') }
                     </div>
-                    <div className={styles.friends_button} onClick={shareLink}>Send</div>
+                    <div className={styles.friends_button} onClick={shareLink}>{ t('send') }</div>
                 </div>
 
                 <div className={styles.friends_body}>
@@ -75,13 +78,14 @@ const FriendsPage = () => {
                                         <img draggable={false} src="/avatar-empty.png" />
                                     }
                                     <span>{friend.user.username ? friend.user.username : friend.user.first_name}</span>
+                                    <span className={styles.friends_collected}>+{setDecimalBalance(friend.collected)}</span>
                                 </div>
                             ))}
                         </div>
                         : '' }
                     {referrals.is_loaded && referrals.count == 0 ?
                         <div className={styles.friends_empty}>
-                            <span>You didn't <br/> invite your friends</span>
+                            <span dangerouslySetInnerHTML={{__html: t('friends_no_friends')}}></span>
                             <img src="/cry_duck.svg" alt=""/>
                         </div> : ''}
                 </div>

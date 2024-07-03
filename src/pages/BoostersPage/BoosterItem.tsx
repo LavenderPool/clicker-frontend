@@ -7,11 +7,14 @@ import BoosterService from "../../services/BoosterService";
 import {BoostersSlice} from "../../store/reducers/BoostersSlice";
 import {UserSlice} from "../../store/reducers/UserSlice";
 import {BoosterNames} from "../../models/BoosterModule";
+import {useTranslation} from "react-i18next";
 
 interface Props {
     type: BoosterNames
 }
 const TimeBooster = ({type}:Props) => {
+    const { t } = useTranslation();
+
     const [inUpgrading, setInUpgrading] = useState<boolean>(false)
     const [popupVisible, setPopupVisible] = useState<boolean>(false);
     const dispatch = useAppDispatch();
@@ -54,10 +57,10 @@ const TimeBooster = ({type}:Props) => {
                 <img src={`/boosters/${type}_${currentLvl}.png`} className={styles.booster_img}/>
                 <div className={styles.booster_info}>
                     <div className={styles.booster_title}>
-                        example title
+                        { t(`${type}.title`) }
                     </div>
                     <div className={styles.booster_subtitle}>
-                        example subtitle
+                        { t(`${type}.subtitle`) }
                     </div>
                     <div className={styles.booster_bottom}>
                         {!lvlIsMax ?
@@ -82,7 +85,7 @@ const TimeBooster = ({type}:Props) => {
                     </div> : ''
                 }
             </div>
-            <Popup visible={popupVisible} setVisible={setPopupVisible} header={'Time booster'}>
+            <Popup visible={popupVisible} setVisible={setPopupVisible}  header={ t(`${type}.title`) }>
                 { !inUpgrading ?
                     <section>
                         <div className={styles.upgrade_icons}>
@@ -92,9 +95,11 @@ const TimeBooster = ({type}:Props) => {
                             </svg>
                             <img draggable={false} src={`/boosters/${type}_${currentLvl+1}.png`} alt=""/>
                         </div>
-                        <div className={styles.upgrade_description}>Booster description</div>
+                        <div className={styles.upgrade_description}>
+                            { t(`${type}.${currentLvl}-${currentLvl+1}`) }
+                        </div>
                         <div onClick={upgradeBooster} className={`${styles.upgrade_button} ${userBalance < nextLvlPrice ? 'disabled' : ''}`}>
-                            Upgrade for
+                            { t('improve_for') }
                             <div>
                                 <img src="/boom.png"/>
                                 {setDecimalBalance(nextLvlPrice)}
@@ -104,7 +109,9 @@ const TimeBooster = ({type}:Props) => {
                     :
                     <section className={styles.loader_container}>
                         <span className={styles.loader}></span>
-                        <span className={styles.loader_title}>Upgrading</span>
+                        <span className={styles.loader_title}>
+                            { t('upgrading') }
+                        </span>
                     </section>
 
                 }
