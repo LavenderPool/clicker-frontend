@@ -19,15 +19,19 @@ export const TasksSlice = createSlice({
             state.is_loaded = true
         },
         enableTaskCollected(state, action:PayloadAction<number>){
-            const task = state.tasks.find(i => i.id == action.payload);
-            if (task && task.user_task) {
-                task.user_task.task_collected = true;
+            if(state.tasks){
+                const task = state?.tasks.find(i => i.id == action.payload);
+                if (task && task.user_task) {
+                    task.user_task.task_collected = true;
+                }
             }
         },
         disableTaskCollected(state, action:PayloadAction<number>){
-            const task = state.tasks.find(i => i.id == action.payload);
-            if (task && task.user_task) {
-                task.user_task.task_collected = false;
+            if(state.tasks){
+                const task = state?.tasks.find(i => i.id == action.payload);
+                if (task && task.user_task) {
+                    task.user_task.task_collected = false;
+                }
             }
         }
     }

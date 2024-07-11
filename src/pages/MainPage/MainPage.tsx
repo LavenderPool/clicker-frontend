@@ -32,8 +32,8 @@ const MainPage = () => {
             const res = await ClickService.click()
             console.log(res);
         }catch (e) {
-            //@ts-ignore
             console.log(e);
+            //@ts-ignore
             if(e.response.data.status == 'no energy'){
                 dispatch(removeClickFromBalance())
                 //@ts-ignore

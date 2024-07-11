@@ -20,10 +20,12 @@ const TasksPage = () => {
 
     const changeSeletedMode = (mode:Mode) => {
         setSelectedMode(mode)
-        if(mode == 'all'){
-            setTasks(tasksData.tasks)
-        }else{
-            setTasks(tasksData.tasks.filter(task => task.completed))
+        if(tasksData.tasks){
+            if(mode == 'all'){
+                setTasks(tasksData.tasks)
+            }else{
+                setTasks(tasksData.tasks.filter(task => task.completed))
+            }
         }
     }
 
@@ -38,7 +40,7 @@ const TasksPage = () => {
     }
 
     const doClick = async (task:Task) => {
-        if(task.user_task != null && task.user_task.task_collected == 0){
+        if(task.user_task != null && task.user_task.task_collected === false){
             try {
                 dispatch(incrementBalance(task.user_task.reward))
                 dispatch(enableTaskCollected(task.id))
@@ -100,7 +102,7 @@ const TasksPage = () => {
                             {task.type == 'telegram_chat' ?
                                 <img src="/telegram.png" className={styles.task_img} alt="tg"/>
                                 :
-                                <img src="/avatar-empty.png" lassName={styles.task_img} alt="tg"/>
+                                <img src="/avatar-empty.png" className={styles.task_img} alt="tg"/>
                             }
 
                             <div className={styles.task_info}>
