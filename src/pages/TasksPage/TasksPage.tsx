@@ -40,7 +40,8 @@ const TasksPage = () => {
     }
 
     const doClick = async (task:Task) => {
-        if(task.user_task != null && task.user_task.task_collected === false){
+        console.log(task);
+        if(task.user_task != null && task.user_task.task_collected == false){
             try {
                 dispatch(incrementBalance(task.user_task.reward))
                 dispatch(enableTaskCollected(task.id))
