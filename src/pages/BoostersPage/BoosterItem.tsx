@@ -1,5 +1,5 @@
 import styles from "./BoostersPage.module.scss";
-import Popup from "../../components/Popup/Popup";
+import Popup from "../../components/Popup/Popup.tsx";
 import {useState} from "react";
 import {useAppDispatch, useAppSelector} from "../../hooks/redux";
 import {setDecimalBalance} from "../../utils/helpers";

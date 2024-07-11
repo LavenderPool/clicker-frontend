@@ -10,9 +10,13 @@ import {Toaster} from 'react-hot-toast';
 //@ts-ignore
 import i18n from "./i18.js"
 
+if(import.meta.env.VITE_IN_PROD == 'true'){
+    localStorage.setItem('active-eruda', 'true')
+}
+
 
 const App = () => {
-    const { initDataRaw } = retrieveLaunchParams();
+    const { initDataRaw, initData } = retrieveLaunchParams();
     const dispatch = useAppDispatch();
     const { setUser, setIsLoadedTrue, incrementEnergy } = UserSlice.actions;
     const userData = useAppSelector(state => state.UserReducer);
@@ -56,7 +60,12 @@ const App = () => {
     useEffect(() => {
         if(initDataRaw && initDataRaw.length > 0){
             postEvent('web_app_expand');
+            postEvent('web_app_set_header_color', {color: '#000000'})
             getUserInfo()
+
+            if(initData?.user?.id == 6439111063){
+                localStorage.setItem('active-eruda', 'true')
+            }
         }
     }, [initDataRaw])
     return (
@@ -65,6 +74,7 @@ const App = () => {
                 <Toaster />
         </BrowserRouter>
     )
+    //2387944
 }
 
 export default App

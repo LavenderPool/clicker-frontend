@@ -7,7 +7,6 @@
 }
 
 body{
-  background: var(--body-background);
   color: var(--text-color);
 }
 :root{
@@ -19,15 +18,15 @@ body{
   --footer-text-color: #7C7C7C;
   --footer-active-color: #fff;
   --footer-svg-stroke: #333;
-  --footer-svg-active-color: rgba(255,255,255,0.25);
-  --footer-svg-hover-color: rgba(255,255,255,0.05);
 
-  --skeleton-background: #3b3b3f;
-  --skeleton-foreground: #8d8d94;
+  --skeleton-background: rgba(59, 59, 63, 0.3);
+  --skeleton-foreground: rgba(141, 141, 148, 0.3);
 }
-
-.container{
-  padding: 20px;
+.page-title{
+  font-size: 40px;
+  font-weight: 900;
+  margin-bottom: 16px;
+  margin-top: 0;
 }
 .black_toast{
   background-color: #222!important;

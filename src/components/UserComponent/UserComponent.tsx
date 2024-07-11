@@ -3,7 +3,7 @@ import {useAppDispatch, useAppSelector} from "../../hooks/redux";
 import {useEffect, useState} from "react";
 import UserComponentSkeleton from "../Skeletons/UserComponentSkeleton";
 import {getUserAvatar, sendErrorMessage, sendSuccessMessage, setDecimalBalance} from "../../utils/helpers";
-import Popup from "../Popup/Popup";
+import Popup from "../Popup/Popup.tsx";
 import {languages} from "../../utils/consts";
 import UserService from "../../services/UserService";
 import {UserSlice} from "../../store/reducers/UserSlice";
@@ -18,12 +18,11 @@ const UserComponent = () => {
     const userData = useAppSelector(state => state.UserReducer)
     const { editPublicName } = UserSlice.actions;
 
-    const [publicName, setPublicName] = useState<string>('')
+    const [publicName, setPublicName] = useState<string>(' ')
     const [languageCode, setLanguageCode] = useState<string>('en')
 
     useEffect(() => {
         if(userData.is_loaded && userData.user){
-            console.log(userData);
             setPublicName(userData.user.public_name)
             setLanguageCode(userData.user.selected_language_code)
         }
@@ -89,7 +88,7 @@ const UserComponent = () => {
                         <input
                             maxLength={16}
                             type="text"
-                            value={publicName}
+                            value={publicName || ''}
                             onChange={e => setPublicName(e.target.value)}
                         />
                     </label>

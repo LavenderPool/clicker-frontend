@@ -67,6 +67,9 @@ export const UserSlice = createSlice({
                     balance.classList.add('balance-anim')
                 }, 100)
             }
+        },
+        incrementBalance(state, action:PayloadAction<number>){
+            state.balance += action.payload
         }
     }
 })

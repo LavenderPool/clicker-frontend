@@ -15,6 +15,9 @@ export default defineConfig(({command}) => {
             ],
             build: {
                 target: 'esnext'
+            },
+            server: {
+                host: '127.0.0.1',
             }
         }
     }else{

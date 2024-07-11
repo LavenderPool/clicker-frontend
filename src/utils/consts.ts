@@ -1,6 +1,7 @@
 export const MAIN_PAGE = '/'
 export const BOOSTERS_PAGE = '/boosters'
 export const FRIENDS_PAGE = '/friends'
+export const TASKS_PAGE = '/tasks'
 export const languages = [
     {
         'short_code': 'ru',

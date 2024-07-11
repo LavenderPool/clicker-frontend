@@ -29,9 +29,11 @@ const MainPage = () => {
         dispatch(setEnergy(userData.energy-1))
         createFloatingNumber(event, userData.click_price);
         try {
-            await ClickService.click()
+            const res = await ClickService.click()
+            console.log(res);
         }catch (e) {
             //@ts-ignore
+            console.log(e);
             if(e.response.data.status == 'no energy'){
                 dispatch(removeClickFromBalance())
                 //@ts-ignore

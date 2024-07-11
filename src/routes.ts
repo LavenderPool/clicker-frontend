@@ -1,7 +1,8 @@
-import {MAIN_PAGE, BOOSTERS_PAGE, FRIENDS_PAGE} from "./utils/consts.ts";
+import {MAIN_PAGE, BOOSTERS_PAGE, FRIENDS_PAGE, TASKS_PAGE} from "./utils/consts.ts";
 import MainPage from "./pages/MainPage/MainPage";
 import FriendsPage from "./pages/FriendsPage/FriendsPage";
 import BoostersPage from "./pages/BoostersPage/BoostersPage";
+import TasksPage from "./pages/TasksPage/TasksPage.tsx";
 
 export const publicRoutes = [
     {
@@ -15,5 +16,9 @@ export const publicRoutes = [
     {
         path: FRIENDS_PAGE,
         Component: FriendsPage
+    },
+    {
+        path: TASKS_PAGE,
+        Component: TasksPage
     },
 ]

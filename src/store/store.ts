@@ -3,11 +3,13 @@ import {configureStore} from "@reduxjs/toolkit"
 import UserReducer from './reducers/UserSlice'
 import ReferralsReducer from './reducers/ReferralsSlice'
 import BoostersReducer from './reducers/BoostersSlice'
+import TasksReducer from './reducers/TasksSlice'
 
 const rootReducer = combineReducers({
     UserReducer,
     ReferralsReducer,
-    BoostersReducer
+    BoostersReducer,
+    TasksReducer
 })
 export const setupStore = () => {
     return configureStore({
