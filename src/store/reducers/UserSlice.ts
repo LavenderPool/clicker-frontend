@@ -59,17 +59,11 @@ export const UserSlice = createSlice({
             }
         },
         decrementBalance(state, action:PayloadAction<number>){
-            const balance = document.getElementById('balance-decrement');
-            if(balance){
-                balance.classList.remove('balance-anim')
-                state.balance -= action.payload
-                setTimeout(() => {
-                    balance.classList.add('balance-anim')
-                }, 100)
-            }
+            state.balance -= action.payload
         },
-        incrementBalance(state, action:PayloadAction<number>){
-            state.balance += action.payload
+        incrementBalance(state, action:PayloadAction<number | string>){
+            const add = parseInt(action.payload)
+            state.balance += add
         }
     }
 })

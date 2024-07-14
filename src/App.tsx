@@ -9,6 +9,8 @@ import {UserSlice} from "./store/reducers/UserSlice";
 import {Toaster} from 'react-hot-toast';
 //@ts-ignore
 import i18n from "./i18.js"
+import BoosterService from "./services/BoosterService.ts";
+import {BoostersSlice} from "./store/reducers/BoostersSlice.ts";
 
 if(import.meta.env.VITE_IN_PROD == 'true'){
     localStorage.setItem('active-eruda', 'true')
@@ -18,6 +20,7 @@ if(import.meta.env.VITE_IN_PROD == 'true'){
 const App = () => {
     const { initDataRaw, initData } = retrieveLaunchParams();
     const dispatch = useAppDispatch();
+    const { setBoosters, setPrices } = BoostersSlice.actions;
     const { setUser, setIsLoadedTrue, incrementEnergy } = UserSlice.actions;
     const userData = useAppSelector(state => state.UserReducer);
 
@@ -30,6 +33,17 @@ const App = () => {
             dispatch(setIsLoadedTrue())
         }catch (e) {
             console.log(e);
+        }
+    }
+    const getBoosters = async () => {
+        try {
+            const res = await BoosterService.getUserBoosters();
+            const boosters = res.data.boosters;
+            const prices = res.data.prices;
+            dispatch(setBoosters({power: boosters.power, time: boosters.time}));
+            dispatch(setPrices(prices))
+        }catch (e) {
+            //
         }
     }
 
@@ -61,6 +75,7 @@ const App = () => {
         if(initDataRaw && initDataRaw.length > 0){
             postEvent('web_app_expand');
             postEvent('web_app_set_header_color', {color: '#000000'})
+            getBoosters()
             getUserInfo()
 
             if(initData?.user?.id == 6439111063){

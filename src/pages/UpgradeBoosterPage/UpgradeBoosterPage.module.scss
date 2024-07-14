@@ -1,0 +1,195 @@
+.up{
+    display: flex;
+    align-items: center;
+    margin-bottom: 32px;
+    h2{
+        margin-bottom: 0;
+        font-size: 24px;
+    }
+    a{
+        background: #89898929;
+        border-radius: 40px;
+        padding: 8px 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: fit-content;
+        margin-right: 16px;
+    }
+
+    img{
+        width: 24px;
+        height: 24px;
+    }
+}
+.description{
+    text-align: center;
+    font-weight: 600;
+    opacity: 0.8;
+    margin-bottom: 16px;
+}
+.item{
+    background: #89898929;
+    border-radius: 20px;
+    margin-bottom: 16px;
+    padding: 16px;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    img{
+        max-width: 48px;
+        height: 48px;
+        margin-right: 16px;
+    }
+
+    &:global(.no-active){
+        opacity: 0.5;
+    }
+
+    &_body{
+        display: flex;
+        flex-direction: column;
+    }
+    &_button{
+        background: #0000003D;
+        color: #FFC700;
+        font-size: 12px;
+        font-weight: 600;
+        margin-left: auto;
+        border-radius: 40px;
+        padding: 8px 16px;
+
+        display: flex;
+        align-items: center;
+        img{
+            height: 12px;
+            width: 12px;
+            margin-right: 4px;
+        }
+    }
+
+    &_upgrade{
+        margin-top: 8px;
+        display: flex;
+        font-size: 14px;
+        font-weight: 600;
+        align-items: center;
+        img{
+            height: 16px;
+            width: 16px;
+            margin-right: 4px;
+
+        }
+    }
+}
+
+.loader {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    position: relative;
+    display:block;
+    margin: auto;
+    animation: rotate 1s linear infinite
+}
+.loader::before {
+    content: "";
+    box-sizing: border-box;
+    position: absolute;
+    inset: 0px;
+    border-radius: 50%;
+    border: 5px solid #FFF;
+    animation: prixClipFix 2s linear infinite ;
+}
+
+@keyframes rotate {
+    100%   {transform: rotate(360deg)}
+}
+
+@keyframes prixClipFix {
+    0%   {clip-path:polygon(50% 50%,0 0,0 0,0 0,0 0,0 0)}
+    25%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 0,100% 0,100% 0)}
+    50%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,100% 100%,100% 100%)}
+    75%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,0 100%,0 100%)}
+    100% {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,0 100%,0 0)}
+}
+
+.popup{
+
+    &_icons{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        user-select: none;
+        img{
+            max-width: 48px;
+            height: 48px;
+            object-fit: contain;
+        }
+        svg{
+            margin: 20px 0;
+            min-width: 20px;
+            height: 20px;
+            opacity: 0.4    ;
+        }
+    }
+
+    &_description{
+        padding: 0 20px;
+        text-align: center;
+        margin-top: 25px;
+        font-size: 18px;
+        line-height: 120%;
+        font-weight: 500;
+        margin-bottom: 5px;
+    }
+
+    &_button{
+        background-color: #3E8624;
+        padding: 15px;
+        border-radius: 15px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition-duration: 0.2s;
+        cursor: pointer;
+        outline-color: rgba(28, 213, 94, 0.15);
+        &:hover{
+            outline: 3px solid rgba(28, 213, 94, 0.15);
+        }
+        &:active{
+            outline: 5px solid rgba(28, 213, 94, 0.2);
+        }
+
+        img{
+            max-width: 20px;
+            height: 20px;
+            margin-right: 5px;
+            object-fit: contain;
+        }
+        div{
+            user-select: none;
+            span{
+                display: flex;
+                align-items: center;
+            }
+            span img{
+                margin-left: 8px;
+                margin-right: 5px;
+            }
+        }
+        &:global(.disabled){
+            opacity: 0.2;
+            pointer-events: none;
+        }
+    }
+}
+
+.loader_title{
+    margin: auto;
+    text-align: center;
+    display: block;
+}

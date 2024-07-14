@@ -1,6 +1,6 @@
 import ContentLoader from "react-content-loader";
 
-const CanEarnSkeleton = () => {
+const BalanceSkeleton = () => {
     return (
         <div style={{height: '41px', width: '100px'}}>
             <ContentLoader viewBox="0 0 100 41"
@@ -13,4 +13,4 @@ const CanEarnSkeleton = () => {
     );
 };
 
-export default CanEarnSkeleton;
+export default BalanceSkeleton;

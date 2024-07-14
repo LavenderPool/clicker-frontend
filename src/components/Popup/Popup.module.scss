@@ -2,8 +2,8 @@
     display: none;
     position: fixed;
     z-index: 100;
-
     &.active {
+        transform: unset;
         display: block;
     }
 }
@@ -59,10 +59,10 @@
     }
 
     &_body{
+        max-height: 60vh;
         overflow-y: auto;
         overflow-x: hidden;
         padding: 15px;
-        max-height: unset;
     }
 
     &_header{
@@ -94,14 +94,5 @@
         font-weight: 600;
         margin-right: 10px;
         font-size: 14px;
-    }
-}
-
-@keyframes opacityOverlay {
-    from{
-        opacity: 0;
-    }
-    to{
-        opacity: 1;
     }
 }

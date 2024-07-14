@@ -1,93 +1,121 @@
+.main{
+    &_top{
+        display: flex;
+        flex-direction: column;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    &_balance{
+        display: flex;
+        align-items: center;
+        margin-bottom: 18px;
+    }
+    &_balance img{
+        width: 44px;
+        height: 44px;
+        margin-right: 20px;
+    }
+    &_balance span{
+        font-weight: 900;
+        font-size: 36px;
+    }
+
+    &_energy{
+        display: flex;
+        align-items: center;
+    }
+    &_energy img{
+        width: 24px;
+        height: 24px;
+        margin-right: 16px;
+    }
+    &_energy span{
+        font-size: 16px;
+        font-weight: 700;
+    }
+}
+
 .button{
-  margin: 0 auto;
-  display: flex;
-  position: relative;
-  z-index: 2;
+    margin: 0 auto;
+    display: flex;
+    position: relative;
+    z-index: 2;
 
-  background-image: url("/tap.png");
-  background-repeat: no-repeat;
-  background-position: 50%;
-  background-size: contain;
+    background-image: url("/tap.png");
+    background-repeat: no-repeat;
+    background-position: 50%;
+    background-size: contain;
 
-  height: 240px;
-  width: 240px;
+    height: 288px;
+    width: 288px;
 
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  border: none;
-  outline: none;
-  transition-duration: 0.2s;
-  cursor: pointer;
-  &:active{
-    transform: scale(0.98);
-    outline: 5px solid rgba(255, 243, 35, 0.3);
-  }
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: none;
+    outline: none;
+    transition-duration: 0.2s;
+    cursor: pointer;
+    &:active{
+        transform: scale(0.98);
+    }
 
-  &:global(.no-energy){
-    cursor: none;
-    pointer-events: none;
-    background-image: url("/tap_empty.png");
-  }
+    &:global(.no-energy){
+        cursor: none;
+        pointer-events: none;
+        opacity: 0.5;
+    }
 }
 
 .floatingNumber {
-  pointer-events: none;
-  position: absolute;
-  z-index: 5;
-  color: #fff;
-  user-select: none;
-  opacity: 1;
-  font-size: 18px;
-  font-weight: 700;
-  transition: transform 1s ease, opacity 1s ease;
+    pointer-events: none;
+    position: absolute;
+    z-index: 5;
+    color: #fff;
+    user-select: none;
+    opacity: 1;
+    font-size: 18px;
+    font-weight: 700;
+    transition: transform 1s ease, opacity 1s ease;
 }
 
 
 .energy_bar{
-  border-radius: 8px;
-  background: #111;
-  height: 12px;
-  margin: 0 0 5px 0;
+    border-radius: 8px;
+    background: #FFFFFF29;
+    height: 8px;
+    margin: 0 0 5px 0;
 }
 .energy{
-  background: #ff4646;
-  border-radius: 8px;
-  height: 12px;
-  display: block;
-  width: 10px;
-  transition-duration: 0.2s;
+    background: #FFC700;
+    border-radius: 20px;
+    height: 8px;
+    display: block;
+    width: 10px;
+    transition-duration: 0.2s;
 }
 .energy_time{
-  display: flex;
-  justify-content: space-between;
-  font-size: 14px;
-  opacity: 0.5;
-  margin-bottom: 10px;
-  user-select: none;
-}
-
-.main_top{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  margin-top: 20px;
-  margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    opacity: 0.5;
+    margin-bottom: 10px;
+    user-select: none;
 }
 .can_earn{
-  font-weight: 700;
-  margin-bottom: 5px;
-  user-select: none;
-  &_counter{
-    display: flex;
-    align-items: center;
-    font-size: 36px;
     font-weight: 700;
+    margin-bottom: 5px;
     user-select: none;
-  }
-  &_counter img{
-    width: 50px;
-    height: 50px;
-  }
+    &_counter{
+        display: flex;
+        align-items: center;
+        font-size: 36px;
+        font-weight: 700;
+        user-select: none;
+    }
+    &_counter img{
+        width: 50px;
+        height: 50px;
+    }
 }

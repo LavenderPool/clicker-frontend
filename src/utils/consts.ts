@@ -2,6 +2,8 @@ export const MAIN_PAGE = '/'
 export const BOOSTERS_PAGE = '/boosters'
 export const FRIENDS_PAGE = '/friends'
 export const TASKS_PAGE = '/tasks'
+export const REWARD_PAGE = '/reward/:amount/:task_id'
+export const UPGRADE_PAGE = '/upgrade/:booster'
 export const languages = [
     {
         'short_code': 'ru',
@@ -28,3 +30,8 @@ export const languages = [
         'img': './flags/indonesia.png',
     }
 ]
+
+export const upgrades = {
+    "power": ["+ 100", "+ 500", "+ 1000", "+ 1500"],
+    "time": ["150 / 3h", "600 / 6h", "1200 / 12h", "2400 / 24h"]
+}

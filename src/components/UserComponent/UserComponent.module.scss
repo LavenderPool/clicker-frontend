@@ -1,7 +1,4 @@
 .user{
-    background-color: #1C1C1E;
-    border-radius: 20px;
-    padding: 20px;
     display: flex;
     align-items: center;
 
@@ -20,6 +17,7 @@
     &_name{
         font-size: 20px;
         font-weight: 700;
+        margin-bottom: 4px;
     }
     &_settings{
         margin-left: auto;
@@ -30,15 +28,15 @@
             height: 20px;
         }
     }
-    &_balance{
-        display: flex;
-        align-items: center;
-        margin-top: 5px;
-        img{
-            max-width: 20px;
-            min-width: 20px;
-            margin-right: 5px;
-            user-select: none;
+
+    &_boosters{
+        color: #FFC700;
+        font-size: 14px;
+        font-weight: 900;
+
+        span{
+            margin: 0 10px;
+            font-weight: 400;
         }
     }
 }
@@ -67,6 +65,7 @@
         padding: 10px;
         border-radius: 10px;
         border: 0;
+        margin-bottom: 16px;
         background: #222225;
         color: #fff;
         cursor: pointer;

@@ -36,6 +36,43 @@
     &_mode span:global(.active){
         background: #3C61E7;
     }
+
+    &_toast{
+        width: 100%;
+        max-width: 100%;
+        min-width: 270px;
+        color: #fff;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        &>div{
+            display: flex;
+            flex-direction: column;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        img{
+            width: 16px;
+            height: 16px;
+            margin-right: 5px;
+        }
+    }
+    &_toast_reward{
+        display: flex;
+        align-items: center;
+        font-size: 16px;
+        height: 16px;
+    }
+    &_toast_close{
+        display: block;
+        height: 16px;
+        cursor: pointer;
+        width: 50px;
+        img{
+            margin-left: auto;
+            display: block;
+        }
+    }
 }
 
 .task{
@@ -77,6 +114,10 @@
         text-decoration: none;
         font-weight: 600;
 
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
         &:global(.claim){
             background-color: #3E8624;
         }
@@ -84,5 +125,26 @@
 
     &_finished{
         color: #83F05C;
+    }
+}
+
+.loader {
+    width: 12px;
+    height: 12px;
+    margin-bottom: -2px;
+    border: 2px solid #FFF;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
     }
 }

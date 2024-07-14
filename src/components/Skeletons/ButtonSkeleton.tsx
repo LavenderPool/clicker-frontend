@@ -3,11 +3,11 @@ import ContentLoader from "react-content-loader";
 const ButtonSkeleton = () => {
     return (
         <div>
-            <ContentLoader viewBox="0 0 350 250"
+            <ContentLoader viewBox="0 0 350 288"
                            backgroundColor="var(--skeleton-background)"
                            foregroundColor="var(--skeleton-foreground)"
             >
-                <circle cx="50%" cy="50%" r="120"/>
+                <circle cx="50%" cy="50%" r="144"/>
             </ContentLoader>
         </div>
     );

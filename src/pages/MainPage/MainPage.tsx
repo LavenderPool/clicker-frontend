@@ -3,12 +3,19 @@ import ClickService from "../../services/ClickService.ts";
 import {useAppDispatch, useAppSelector} from "../../hooks/redux.ts";
 import styles from './MainPage.module.scss'
 import {UserSlice} from "../../store/reducers/UserSlice.ts";
-import {calculateEnergyRatio, howMuchCanEarn, sendErrorMessage, setDecimalBalance} from "../../utils/helpers";
+import {
+    calculateEnergyRatio,
+    howMuchCanEarn,
+    sendErrorMessage,
+    setDecimalBalance,
+    setEnergyDecimal
+} from "../../utils/helpers";
 import {useState} from "react";
 import EnergySkeleton from "../../components/Skeletons/EnergySkeleton";
 import ButtonSkeleton from "../../components/Skeletons/ButtonSkeleton";
-import CanEarnSkeleton from "../../components/Skeletons/CanEarnSkeleton";
+import BalanceSkeleton from "../../components/Skeletons/BalanceSkeleton.tsx";
 import {useTranslation} from "react-i18next";
+import EnergyBalanceSkeleton from "../../components/Skeletons/EnergyBalanceSkeleton.tsx";
 
 const MainPage = () => {
     const { t } = useTranslation();
@@ -72,14 +79,23 @@ const MainPage = () => {
             <UserComponent />
 
             <div className={styles.main_top}>
-                <span className={styles.can_earn}>{ t('you_can_earn')}</span>
-                <div className={styles.can_earn_counter}>
-                    <img draggable={false} src="/boom.png" alt=""/>
+                <div className={styles.main_balance}>
+                    <img draggable={false} src="/token.png" alt=""/>
                     {userData.is_loaded ?
                         <span>
-                            {howMuchCanEarn(userData.energy, userData.click_price)}
+                            {setDecimalBalance(userData.balance)}
                         </span>
-                        : <CanEarnSkeleton />
+                        : <BalanceSkeleton/>
+                    }
+                </div>
+
+                <div className={styles.main_energy}>
+                    <img draggable={false} src="/energy.png" alt=""/>
+                    {userData.is_loaded ?
+                        <span>
+                            { setEnergyDecimal(userData.energy) } / 200
+                        </span>
+                        : <EnergyBalanceSkeleton/>
                     }
                 </div>
 
@@ -89,7 +105,7 @@ const MainPage = () => {
                 <div>
                     <div
                         className={styles.energy_bar}
-                        style={{backgroundColor: `${userData.energy < 1? '#444': ''}`}}
+                        style={{backgroundColor: `${userData.energy < 1 ? '#444' : ''}`}}
                     >
                     <span
                         className={styles.energy}

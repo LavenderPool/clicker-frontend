@@ -23,6 +23,7 @@ export const BoostersSlice = createSlice({
         setPrices(state, action:PayloadAction<BoosterPrices>){
             state.prices = action.payload
             state.is_loaded = true
+            console.log(state.prices);
         },
         upgradeLvl(state, action:PayloadAction<BoosterNames>){
             state[action.payload] += 1

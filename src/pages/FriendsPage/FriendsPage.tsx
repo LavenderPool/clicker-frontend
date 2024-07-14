@@ -23,7 +23,8 @@ const FriendsPage = () => {
     const getReferrals = async () => {
         try {
             const res = await ReferralService.getReferrals()
-            dispatch(setReferrals(res.data.referrals))
+            console.log(res);
+            dispatch(setReferrals(res.data.referrals.data))
             dispatch(setReferralsCount(res.data.referral_count))
             dispatch(setInviteCode(res.data.invite_code))
             setShareUrl(getShareUrl(res.data.invite_code))
@@ -50,45 +51,55 @@ const FriendsPage = () => {
 
     return (
         <div className={styles.friends}>
+            <h2 className="page-title">{t('friends')}</h2>
+
             <div className="container">
-                <div className={styles.friends_title}>
-                    { t('friends') }
-                </div>
+                <div className={styles.friends_up}>
+                    <img draggable={false} src="/friends_money.png" className={styles.friends_up_money} alt=""/>
+                    <div className={styles.friends_subtitle} dangerouslySetInnerHTML={{ __html: t('friends_subtitle') }}></div>
 
-                <div className={styles.friends_subtitle}>
-                    { t('friends_subtitle') }
-                </div>
-
-                <div className={`${styles.friends_buttons} ${!referrals.inviteCode ? 'disabled' : ''}`}>
-                    <div className={styles.friends_button} onClick={copyToClipboard}>
-                        {isCopied ? t('copied') : t('copy') }
-                    </div>
-                    <div className={styles.friends_button} onClick={shareLink}>{ t('send') }</div>
-                </div>
-
-                <div className={styles.friends_body}>
-                    { !referrals.is_loaded ? <ReferralsListSkeleton /> : ''}
-                    { referrals.is_loaded && referrals.count > 0 ?
-                        <div className={styles.friends_list}>
-                            {referrals.referrals && referrals.referrals.map((friend) => (
-                                <div className={styles.friends_item} key={friend.id}>
-                                    {friend.user.photo_uploaded ?
-                                        <img draggable={false} src={getUserAvatar(friend.user.telegram_id)}/>
-                                        :
-                                        <img draggable={false} src="/avatar-empty.png" />
-                                    }
-                                    <span>{friend.user.username ? friend.user.username : friend.user.first_name}</span>
-                                    <span className={styles.friends_collected}>+{setDecimalBalance(friend.collected)}</span>
-                                </div>
-                            ))}
+                    <div className={`${styles.friends_buttons} ${!referrals.inviteCode ? 'disabled' : ''}`}>
+                        <div className={styles.friends_button} onClick={copyToClipboard}>
+                            {isCopied ? t('copied') : t('copy')}
                         </div>
-                        : '' }
-                    {referrals.is_loaded && referrals.count == 0 ?
-                        <div className={styles.friends_empty}>
-                            <span dangerouslySetInnerHTML={{__html: t('friends_no_friends')}}></span>
-                            <img src="/cry_duck.svg" alt=""/>
-                        </div> : ''}
+                        <div className={styles.friends_button} onClick={shareLink}>{t('send')}</div>
+                    </div>
                 </div>
+
+                {!referrals.is_loaded ? <ReferralsListSkeleton/> : ''}
+                {referrals.is_loaded && referrals.count > 0 ?
+                    <div className={styles.friends_list}>
+                        {referrals.referrals && referrals.referrals.map((friend) => (
+                            <div className={styles.friends_item} key={friend.id}>
+                                {friend.user.photo_uploaded ?
+                                    <img draggable={false} src={getUserAvatar(friend.user.telegram_id)}/>
+                                    :
+                                    <img draggable={false} src="/avatar-empty.png"/>
+                                }
+                                <span>{friend.user.username ? friend.user.username : friend.user.first_name}</span>
+                                <div className={styles.friends_collected}>
+                                    <img src="/token.png" alt=""/>
+                                    <span>+{setDecimalBalance(friend.collected)}</span>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                    : ''}
+
+                {referrals.is_loaded && referrals.count == 0 ?
+                    <div className={styles.friends_empty}>
+                        <img src="/thermometr_face.png" alt=""/>
+                        <span
+                            className={styles.friends_empty_title}
+                        >{ t('friends_no_friends_title') }</span>
+                        <span
+                            className={styles.friends_empty_subtitle}
+                            dangerouslySetInnerHTML={{__html: t('friends_no_friends')}}
+                        ></span>
+                        <span
+                            onClick={shareLink}
+                            className={styles.friends_empty_invite}>{t('friends_invite')}</span>
+                    </div> : ''}
             </div>
         </div>
     );

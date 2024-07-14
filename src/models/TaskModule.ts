@@ -7,8 +7,9 @@ export interface Task {
 
     id: number,
 
-    user_task?: {
-        reward: number,
-        task_collected: boolean
-    }
+    user_task?: UserTask
+}
+export interface UserTask {
+    reward: number,
+    task_collected: boolean
 }

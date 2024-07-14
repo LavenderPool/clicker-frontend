@@ -58,3 +58,11 @@ a {
     opacity: 1;
   }
 }
+
+.confetti{
+  transition-duration: 0.5s;
+  pointer-events: none;
+}
+.disabled-confetti{
+  opacity: 0!important;
+}
