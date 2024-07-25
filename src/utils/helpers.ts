@@ -9,10 +9,12 @@ export const setEnergyDecimal = (energy: number) => {
 }
 
 export const setDecimalBalance = (balance: number | string) => {
-    balance = parseInt(balance)
+    balance = parseInt(balance.toString());
     const result = balance / 100;
     const fixedResult = Math.floor(result * 10) / 10;
-    return fixedResult % 1 === 0 ? `${fixedResult}.0` : fixedResult.toString();
+    const finalResult = fixedResult % 1 === 0 ? `${fixedResult}.0` : fixedResult.toString();
+
+    return finalResult.replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
 }
 
 export const getShareUrl = (code: string) => {
@@ -55,4 +57,10 @@ export const calculateEnergyRatio = (energy:number, hoursPerDay:number) => {
         return `${hours}h`;
 
     }
+}
+
+export const getResource = (power:number, time:number) => {
+    const resources = ['wood', 'stone', 'iron', 'silver', 'gold'];
+    const resultIndex = Math.min(power, time);
+    return resources[resultIndex];
 }

@@ -59,7 +59,7 @@ const FriendsPage = () => {
                     <div className={styles.friends_subtitle} dangerouslySetInnerHTML={{ __html: t('friends_subtitle') }}></div>
 
                     <div className={`${styles.friends_buttons} ${!referrals.inviteCode ? 'disabled' : ''}`}>
-                        <div className={styles.friends_button} onClick={copyToClipboard}>
+                        <div className={styles.friends_button} onClick={() => copyToClipboard()}>
                             {isCopied ? t('copied') : t('copy')}
                         </div>
                         <div className={styles.friends_button} onClick={shareLink}>{t('send')}</div>

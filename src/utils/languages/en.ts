@@ -38,7 +38,7 @@ export const en_translation = {
     "reward.earned": "You earned",
     "reward.completed": "Task completed",
     "reward.more": "Complete tasks and earn even more coins",
-    "reward.close": "Close",
+    "close": "Close",
     "tasks.claim": "Take",
     "tasks.claimed": "You received",
     "tasks": "Tasks",
@@ -46,5 +46,23 @@ export const en_translation = {
     "tasks.completed": "Completed",
     "tasks.subtitle": "Complete tasks and get rewards",
     "tasks.purchased": "Purchased",
-    "tasks.no_lvl": "Insufficient level"
+    "tasks.no_lvl": "Insufficient level",
+
+    "account": "Account",
+    "language": "Language",
+    "share": "Share",
+    "account_link": "Account link",
+    "your_rank": "Your rank",
+    "account_link_subtitle": "When other players follow your referral link, you will be credited with 20% of the coins earned for the entire time they spent in the game",
+
+    "start_title": "What can this bot do?",
+    "start_text": "The bot turns your activity into rewards, allowing you to earn extra coins by completing tasks and inviting friends",
+    "welcome": "Welcome",
+    "your_gift": "Your gift",
+    "gift_thx": "Thank you for using telegram",
+    "invite_friends": "Invite friends",
+    "share_link": "Share the link",
+    "account_age": "Account age",
+
+    "continue": "Continue",
 }

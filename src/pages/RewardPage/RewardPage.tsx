@@ -1,3 +1,4 @@
+// @ts-nocheck
 import styles from './RewardPage.module.scss'
 import i18next from "i18next";
 import {Link, useNavigate, useParams} from "react-router-dom";
@@ -6,7 +7,7 @@ import {sendErrorMessage, setDecimalBalance} from "../../utils/helpers.ts";
 import {useAppDispatch} from "../../hooks/redux.ts";
 import {TasksSlice} from "../../store/reducers/TasksSlice.ts";
 import {UserSlice} from "../../store/reducers/UserSlice.ts";
-import MyConfetti from "../../components/Confetti/MyConfetti.tsx";
+import MyConfetti from "../../components/MyConfetti/MyConfetti.tsx";
 import TaskService from "../../services/TaskService.ts";
 
 
@@ -56,7 +57,7 @@ const RewardPage = () => {
                     <img src="/token.png" alt="" />
                     + {setDecimalBalance(amount)}
                 </div>
-                <img className={styles.reward_vault} src="/vault.png" alt=""/>
+                <img className={styles.reward_vault} src="/vault_r.png" alt=""/>
                 <div className={styles.reward_completed}>
                     { t('reward.completed') }
                 </div>
@@ -67,7 +68,7 @@ const RewardPage = () => {
 
             <div className={styles.reward_buttons}>
                 <Link to={'/tasks'}>
-                    {t('reward.close')}
+                    {t('close')}
                 </Link>
                 <button onClick={() => claimReward()} className={buttonInLoad ? 'disabled' : ''}>
                     {buttonInLoad ?

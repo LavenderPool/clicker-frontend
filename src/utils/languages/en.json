@@ -1,15 +1,7 @@
 {
-    "reward.title": "Reward",
-    "reward.earned": "You earned",
-    "reward.completed": "Task completed",
-    "reward.more": "Complete tasks and earn even more coins",
-    "reward.close": "Close",
-    "tasks.claim": "Take",
-    "tasks.claimed": "You received",
-    "tasks": "Tasks",
-    "tasks.all": "All",
-    "tasks.completed": "Completed",
-    "tasks.subtitle": "Complete tasks and get rewards",
-    "tasks.purchased": "Purchased",
-    "tasks.no_lvl": "Insufficient level"
+    "language": "Language",
+    "share": "Share",
+    "account_link": "Account link",
+    "your_rank": "Your rank",
+    "account_link_subtitle": "When other players follow your referral link, you will be credited with 20% of the coins earned for the entire time they spent in the game"
 }

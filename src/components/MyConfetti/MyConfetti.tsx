@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import {useCallback, useEffect, useMemo, useState} from "react";
 import Confetti from 'react-confetti'
 

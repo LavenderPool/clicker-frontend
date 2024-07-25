@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import styles from "./BoostersPage.module.scss";
 import Popup from "../../components/Popup/Popup.tsx";
 import {useState} from "react";

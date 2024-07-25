@@ -8,6 +8,8 @@
     text-align: center;
     cursor: pointer;
     transition-duration: 0.2s;
+    -webkit-tap-highlight-color: transparent;
+
     &:hover{
         background: rgba(0, 0, 0, 0.31);
     }
@@ -25,10 +27,12 @@
         display: block;
     }
     &_up_money{
-        top: -50px;
+        top: -20px;
         left: 50%;
         transform: translate(-50%, 0);
         position: absolute;
+        width: 88px;
+        object-fit: contain;
     }
     &_title{
         font-size: 48px;

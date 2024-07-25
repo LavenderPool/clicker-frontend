@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import styles from './BoostersPage.module.scss'
 import {useAppSelector} from "../../hooks/redux";
 import {useTranslation} from "react-i18next";
@@ -24,7 +26,7 @@ const BoostersPage = () => {
                                 <span className={styles.boosters_item_max}>MAX</span>: ''
                             }
                             <span>{boostersData[i]} LVL</span>
-                            <img src="/arrow-right.svg" alt=""/>
+                            <img src="/svgs/arrow-right.svg" alt=""/>
                         </div>
                     </div>
                 </Link>

@@ -37,7 +37,7 @@ export const id_translation = {
     "reward.earned": "Anda memperolehnya",
     "reward.completed": "Tugas selesai",
     "reward.more": "Selesaikan tugas dan dapatkan lebih banyak koin",
-    "reward.close": "Menutup",
+    "close": "Menutup",
     "tasks.claim": "Mengambil",
     "tasks.claimed": "Anda telah menerima",
     "tasks": "Tugas",
@@ -45,5 +45,23 @@ export const id_translation = {
     "tasks.completed": "Lengkap",
     "tasks.subtitle": "Selesaikan tugas dan dapatkan hadiah",
     "tasks.purchased": "Dibeli",
-    "tasks.no_lvl": "Tingkat tidak mencukupi"
+    "tasks.no_lvl": "Tingkat tidak mencukupi",
+
+    "account": "Akun",
+    "language": "Bahasa",
+    "share": "Membagikan",
+    "account_link": "Tautan akun",
+    "your_rank": "Peringkat Anda",
+    "account_link_subtitle": "Ketika pemain lain mengikuti tautan rujukan Anda, Anda akan dikreditkan dengan 20% koin yang diperoleh sepanjang waktu yang mereka habiskan dalam permainan",
+
+    "start_title": "Apa yang bisa dilakukan bot ini?",
+    "start_text": "Bot mengubah aktivitas Anda menjadi hadiah, memungkinkan Anda memperoleh koin tambahan dengan menyelesaikan tugas dan mengundang teman",
+    "welcome": "Selamat datang",
+    "your_gift": "Hadiahmu",
+    "gift_thx": "Terima kasih telah menggunakan telegram",
+    "invite_friends": "Mengundang teman-teman",
+    "share_link": "Bagikan tautannya",
+    "account_age": "Usia akun",
+
+    "continue": "Lanjutkan",
 }

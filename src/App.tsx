@@ -1,5 +1,5 @@
 import './App.css'
-import {BrowserRouter} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import AppRouter from "./components/AppRouter";
 import {useEffect} from "react";
 import UserService from "./services/UserService";
@@ -11,6 +11,7 @@ import {Toaster} from 'react-hot-toast';
 import i18n from "./i18.js"
 import BoosterService from "./services/BoosterService.ts";
 import {BoostersSlice} from "./store/reducers/BoostersSlice.ts";
+import {AGE_REWARD_PAGE, SHARE_LINK_PAGE} from "./utils/consts";
 
 if(import.meta.env.VITE_IN_PROD == 'true'){
     localStorage.setItem('active-eruda', 'true')
@@ -24,13 +25,23 @@ const App = () => {
     const { setUser, setIsLoadedTrue, incrementEnergy } = UserSlice.actions;
     const userData = useAppSelector(state => state.UserReducer);
 
+    const navigate = useNavigate();
+
 
     const getUserInfo = async () => {
+        console.log(`v-1.1`)
         try {
             const res = await UserService.getUserInfo()
             dispatch(setUser(res.data))
             i18n.changeLanguage(res.data.user.selected_language_code);
             dispatch(setIsLoadedTrue())
+            console.log(res);
+            if(!res.data.user_start.opened){
+                navigate(res.data.age_feature ? AGE_REWARD_PAGE : SHARE_LINK_PAGE)
+            }
+            if(res.data.user_start.opened && !res.data.user_start.opened_age && res.data.user_start.reward){
+                navigate(AGE_REWARD_PAGE)
+            }
         }catch (e) {
             console.log(e);
         }
@@ -84,12 +95,11 @@ const App = () => {
         }
     }, [initDataRaw])
     return (
-        <BrowserRouter>
-                <AppRouter/>
-                <Toaster />
-        </BrowserRouter>
+        <>
+            <AppRouter/>
+            <Toaster />
+        </>
     )
-    //2387944
 }
 
 export default App

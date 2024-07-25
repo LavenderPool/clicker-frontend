@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import styles from './Tasks.module.scss'
 import {useEffect, useState} from "react";
 import TaskService from "../../services/TaskService.ts";
@@ -63,7 +65,7 @@ const TasksPage = () => {
             try {
                 const res = await TaskService.addTgTry(task.id)
                 console.log(res);
-                // window.location.href = task.link
+                window.location.href = task.link
 
                 setLoadingTasks(prevState => ({ ...prevState, [task.id]: true }));
 
@@ -114,7 +116,7 @@ const TasksPage = () => {
                     </span>
                 </div>
                 <span className={styles.tasks_toast_close} onClick={() => toast.dismiss(tt.id)}>
-                    <img src="/close.svg" alt=""/>
+                    <img src="/svgs/close.svg" alt=""/>
                 </span>
             </div>
         ), {style: {
@@ -146,7 +148,7 @@ const TasksPage = () => {
                     {tasks?.map((task: Task) => (
                         <div key={task.id} className={styles.task}>
                             {task.type == 'telegram_chat' ?
-                                <img src="/telegram.svg" className={styles.task_img} alt="tg"/>
+                                <img src="/svgs/telegram.svg" className={styles.task_img} alt="tg"/>
                                 :
                                 <img src="/avatar-empty.png" className={styles.task_img} alt="tg"/>
                             }

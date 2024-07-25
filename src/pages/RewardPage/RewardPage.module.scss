@@ -37,6 +37,8 @@
     &_vault{
         margin: 35px auto;
         display: block;
+        max-width: 141px;
+        object-fit: contain;
     }
 
     &_completed{

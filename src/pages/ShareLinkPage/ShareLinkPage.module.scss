@@ -1,0 +1,81 @@
+.start{
+    min-height: calc(100svh - 64px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    h2{
+        text-align: center;
+    }
+
+    &_title{
+        font-size: 24px;
+        font-weight: 900;
+        text-align: center;
+        margin-bottom: 16px;
+    }
+
+    &_body{
+        margin-bottom: 100px;
+    }
+
+    &_img{
+        margin: 35px auto;
+        display: block;
+        width: 160px;
+        object-fit: contain;
+    }
+
+    &_completed{
+        font-size: 24px;
+        font-weight: 900;
+        text-align: center;
+        margin-bottom: 16px;
+    }
+
+    &_more{
+        text-align: center;
+        font-weight: 600;
+        opacity: 0.8;
+    }
+
+    &_buttons{
+        display: flex;
+        justify-content: center;
+        margin-top: auto;
+        height: auto;
+
+        position: fixed;
+        bottom: 16px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: 20px;
+
+        &>*{
+            margin-top: auto;
+            padding: 18px 38px;
+            width: fit-content;
+            border: none;
+            color: #fff;
+            display: block;
+            font-size: 20px;
+            font-weight: 600;
+            border-radius: 20px;
+            text-decoration: none;
+            cursor: pointer;
+            background: rgba(0,0,0,0.24);
+            backdrop-filter: blur(8px);
+        }
+    }
+
+    &_invite{
+        font-weight: 600;
+        background: rgba(60, 97, 231, 1);
+        padding: 10px 55px;
+        margin: 26px auto 0;
+        cursor: pointer;
+        font-size: 16px;
+        border-radius: 40px;
+        width: fit-content;
+    }
+}

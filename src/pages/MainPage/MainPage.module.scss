@@ -10,6 +10,8 @@
         display: flex;
         align-items: center;
         margin-bottom: 18px;
+        width: fit-content;
+        backdrop-filter: blur(3px);
     }
     &_balance img{
         width: 44px;
@@ -57,6 +59,7 @@
     outline: none;
     transition-duration: 0.2s;
     cursor: pointer;
+    transform: perspective(1000px) rotateX(var(--tiltX)) rotateY(var(--tiltY));
     &:active{
         transform: scale(0.98);
     }
@@ -68,18 +71,17 @@
     }
 }
 
-.floatingNumber {
-    pointer-events: none;
+.floatingImage {
     position: absolute;
-    z-index: 5;
-    color: #fff;
-    user-select: none;
-    opacity: 1;
-    font-size: 18px;
-    font-weight: 700;
-    transition: transform 1s ease, opacity 1s ease;
-}
+    z-index: 2;
+    width: 90px;
+    height: 90px;
+    display: block;
+    pointer-events: none;
 
+    transition: transform 1.8s ease, opacity 1.8s ease;
+    will-change: transform, opacity;
+}
 
 .energy_bar{
     border-radius: 8px;

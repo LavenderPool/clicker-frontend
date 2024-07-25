@@ -37,7 +37,7 @@ export const es_translation = {
     "reward.earned": "Usted ganó",
     "reward.completed": "Tarea terminada",
     "reward.more": "Completa tareas y gana aún más monedas.",
-    "reward.close": "Cerca",
+    "close": "Cerca",
     "tasks.claim": "Llevar",
     "tasks.claimed": "recibiste",
     "tasks": "Tareas",
@@ -45,5 +45,23 @@ export const es_translation = {
     "tasks.completed": "Terminado",
     "tasks.subtitle": "Completa tareas y obtén recompensas.",
     "tasks.purchased": "Comprado",
-    "tasks.no_lvl": "Nivel insuficiente"
+    "tasks.no_lvl": "Nivel insuficiente",
+
+    "account": "Cuenta",
+    "language": "Idioma",
+    "share": "Compartir",
+    "account_link": "Enlace de cuenta",
+    "your_rank": "Su rango",
+    "account_link_subtitle": "Cuando otros jugadores sigan tu enlace de referencia, se te acreditará el 20 % de las monedas obtenidas durante todo el tiempo que pasaron en el juego.",
+
+    "start_title": "¿Qué puede hacer este robot?",
+    "start_text": "El bot convierte tu actividad en recompensas, permitiéndote ganar monedas adicionales al completar tareas e invitar a amigos.",
+    "welcome": "Bienvenido",
+    "your_gift": "Tu regalo",
+    "gift_thx": "gracias por usar telegrama",
+    "invite_friends": "Invitar a amigos",
+    "share_link": "Comparte el enlace",
+    "account_age": "Edad de la cuenta",
+
+    "continue": "Continuar",
 }

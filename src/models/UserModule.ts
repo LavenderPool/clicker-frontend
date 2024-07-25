@@ -20,3 +20,10 @@ export interface UserModule {
 export interface BalanceModule {
     balance: number,
 }
+
+export interface UserStartModule {
+    account_age: number,
+    opened: boolean,
+    opened_age: boolean,
+    reward: number
+}

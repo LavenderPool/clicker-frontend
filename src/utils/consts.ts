@@ -4,6 +4,10 @@ export const FRIENDS_PAGE = '/friends'
 export const TASKS_PAGE = '/tasks'
 export const REWARD_PAGE = '/reward/:amount/:task_id'
 export const UPGRADE_PAGE = '/upgrade/:booster'
+export const PROFILE_PAGE = '/profile'
+export const START_PAGE = '/start'
+export const AGE_REWARD_PAGE = '/age-reward'
+export const SHARE_LINK_PAGE = '/share-link'
 export const languages = [
     {
         'short_code': 'ru',
@@ -32,6 +36,6 @@ export const languages = [
 ]
 
 export const upgrades = {
-    "power": ["+ 100", "+ 500", "+ 1000", "+ 1500"],
+    "power": ["+ 200 / 2h", "+ 500 / 2h", "+ 1000 / 2h", "+ 1500 / 2h"],
     "time": ["150 / 3h", "600 / 6h", "1200 / 12h", "2400 / 24h"]
 }

@@ -22,7 +22,6 @@
     &_settings{
         margin-left: auto;
         cursor: pointer;
-        opacity: 0.5;
         svg{
             width: 20px;
             height: 20px;
@@ -78,60 +77,6 @@
         &:focus{
             outline: 5px solid rgba(34,34,37,0.6);
         }
-    }
-}
-
-.languages{
-    display: flex;
-    flex-wrap: wrap;
-    margin-bottom: 10px;
-
-    input{
-        display: none;
-        appearance: none;
-    }
-    input:checked ~ div{
-        background: rgba(22,22,22,0.5);
-        outline: 3px solid rgba(7, 151, 255, 0.1);
-        border-color: #337db7;
-    }
-}
-.language{
-    width: calc(50%);
-
-    &:nth-child(2n) &_body{
-        margin-left: 5px;
-    }
-    &:nth-child(2n-1) &_body{
-        margin-right: 5px;
-    }
-
-    &_body{
-        display: flex;
-        align-items: center;
-        border: 1px solid rgb(111,111,111);
-        border-radius: 10px;
-        padding: 10px;
-        margin-bottom: 10px;
-    }
-
-    &_info{
-        display: flex;
-        flex-direction: column;
-
-        span:first-child{
-            font-size: 14px;
-            font-weight: 700;
-        }
-        span:last-child{
-            font-size: 12px;
-        }
-    }
-
-    img{
-        max-width: 20px;
-        margin-right: 10px;
-        height: 20px;
     }
 }
 

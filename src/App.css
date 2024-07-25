@@ -7,10 +7,16 @@
 }
 
 body{
+  background-color: #000;
   color: var(--text-color);
+  -webkit-tap-highlight-color:  rgba(255, 255, 255, 0);
+  background-image: url("/bg.png");
+  background-size: cover;
+  min-height: 100vh;
+  background-position: center center;
+  background-repeat: no-repeat;
 }
 :root{
-  --body-background: #000;
   --text-color: #fff;
 
   --item-background: #444;
@@ -28,6 +34,11 @@ body{
   margin-bottom: 16px;
   margin-top: 0;
 }
+.main{
+  padding: 16px;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
 .black_toast{
   background-color: #222!important;
   color: #fff!important;
@@ -43,7 +54,7 @@ textarea,
 button,
 select,
 a {
-  -webkit-tap-highlight-color: transparent!important;
+  -webkit-tap-highlight-color:  rgba(255, 255, 255, 0);
 }
 @keyframes balanceAnimation {
   0%{

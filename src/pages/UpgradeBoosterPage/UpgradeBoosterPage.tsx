@@ -1,3 +1,4 @@
+// @ts-nocheck
 import styles from './UpgradeBoosterPage.module.scss'
 import {Link, useParams} from "react-router-dom";
 import i18next from "i18next";
@@ -51,19 +52,25 @@ const UpgradeBoosterPage = () => {
     }
 
     const openPopup = (lvl: number) => {
-        setPopupLvl(lvl)
-        setPopupVisible(true)
+        if(lvl == boostersData[booster]+1){
+            setPopupLvl(lvl)
+            setPopupVisible(true)
+        }
     }
 
     return (
         <div>
             <div className={styles.up}>
                 <Link to={'/boosters'}>
-                    <img src="/arrow_left.svg" alt=""/>
+                    <img src="/svgs/arrow_left.svg" alt=""/>
                 </Link>
                 <h2 className="page-title">
                     { t(`${booster}.title`) }
                 </h2>
+            </div>
+            <div className={styles.balance}>
+                <img src="/token.png" alt=""/>
+                {setDecimalBalance(userData.balance)}
             </div>
             <div className={styles.description}>
                 { t(`${booster}.upgrade`) }
@@ -86,9 +93,9 @@ const UpgradeBoosterPage = () => {
                                 <div className={styles.item_button}>
                                     {boostersData[booster] < i ?
                                         <span>
-                                        <img src="/token.png" alt=""/>
+                                            <img src="/token.png" alt=""/>
                                             {setDecimalBalance(boostersData.prices[booster][i])}
-                                    </span>
+                                        </span>
                                         :
                                         t('tasks.purchased')
                                     }
@@ -122,6 +129,13 @@ const UpgradeBoosterPage = () => {
                                     </div>
                                 </div>
                                     : ''}
+                                <div className={styles.balance_popup}>
+                                    { t('your_balance') }
+                                    <span>
+                                         <img src="/token.png" alt=""/>
+                                         {setDecimalBalance(userData.balance)}
+                                    </span>
+                                </div>
                             </section>
                             :
                             <section className={styles.loader_container}>

@@ -1,6 +1,7 @@
 export const ru_translation = {
     "you_can_earn": "Можно заработать",
     "home": "Домой",
+    "close": "Закрыть",
     "boosters": "Бустеры",
     "friends": "Друзья",
     "friends_subtitle": "Вы получите 20% от заработанной валюты вашего друга",
@@ -38,7 +39,6 @@ export const ru_translation = {
     "reward.earned": "Ты заработал",
     "reward.completed": "Задание выполнено",
     "reward.more": "Выполняй задания и зарабатывай ещё больше монет",
-    "reward.close": "Закрыть",
     "tasks.claim": "Забрать",
     "tasks.claimed": "Вы получили",
     "tasks": "Задания",
@@ -47,4 +47,22 @@ export const ru_translation = {
     "tasks.subtitle": "Выполняй задания и получай награды",
     "tasks.purchased": "Куплено",
     "tasks.no_lvl": "Недостаточный уровень",
+
+    "account": "Аккаунт",
+    "language": "Язык",
+    "share": "Поделиться",
+    "account_link": "Ссылка на аккаунт",
+    "your_rank": "Твой ранг",
+    "account_link_subtitle": "Когда другие игроки перейдут по вашей реферальной ссылке, вам будет начислено 20% от количества монет, заработанных за все время, проведенное ими в игре",
+
+    "start_title": "Что может сделать этот бот?",
+    "start_text": "The bot turns your activity into rewards, allowing you to earn extra coins by completing tasks and inviting friends",
+    "welcome": "Приветствуем",
+    "your_gift": "Твой подарок",
+    "gift_thx": "Спасибо что пользуетесь телеграмом",
+    "invite_friends": "Приглашай друзей",
+    "share_link": "Делись ссылкой",
+    "account_age": "Возраст аккаунта",
+
+    "continue": "Продолжить",
 }

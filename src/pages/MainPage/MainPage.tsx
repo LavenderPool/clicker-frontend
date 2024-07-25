@@ -1,78 +1,24 @@
+// @ts-nocheck
 import UserComponent from "../../components/UserComponent/UserComponent";
-import ClickService from "../../services/ClickService.ts";
-import {useAppDispatch, useAppSelector} from "../../hooks/redux.ts";
+import {useAppSelector} from "../../hooks/redux.ts";
 import styles from './MainPage.module.scss'
-import {UserSlice} from "../../store/reducers/UserSlice.ts";
 import {
     calculateEnergyRatio,
-    howMuchCanEarn,
-    sendErrorMessage,
     setDecimalBalance,
     setEnergyDecimal
 } from "../../utils/helpers";
-import {useState} from "react";
+import {useRef} from "react";
 import EnergySkeleton from "../../components/Skeletons/EnergySkeleton";
-import ButtonSkeleton from "../../components/Skeletons/ButtonSkeleton";
 import BalanceSkeleton from "../../components/Skeletons/BalanceSkeleton.tsx";
 import {useTranslation} from "react-i18next";
 import EnergyBalanceSkeleton from "../../components/Skeletons/EnergyBalanceSkeleton.tsx";
+import ClickerButton from "../../components/ClickerButton/ClickerButton";
 
 const MainPage = () => {
     const { t } = useTranslation();
-    const [clickerState, setClickerState] = useState<boolean>(true);
-    const dispatch = useAppDispatch();
-    const { removeClickFromBalance, addClickToBalance, setEnergy } = UserSlice.actions;
+
     const userData = useAppSelector(state => state.UserReducer)
-
-    const doClick = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        if(userData.energy < 1){
-            setClickerState(false)
-            return 0
-        }
-        if(!clickerState || !userData.is_loaded){
-            return 0
-        }
-        dispatch(addClickToBalance())
-        dispatch(setEnergy(userData.energy-1))
-        createFloatingNumber(event, userData.click_price);
-        try {
-            const res = await ClickService.click()
-            console.log(res);
-        }catch (e) {
-            console.log(e);
-            //@ts-ignore
-            if(e.response.data.status == 'no energy'){
-                dispatch(removeClickFromBalance())
-                //@ts-ignore
-                dispatch(setEnergy(e.response.data.energy))
-                return sendErrorMessage('No energy')
-            }
-            sendErrorMessage('Server error')
-            setClickerState(false)
-            setTimeout(() => {
-                setClickerState(true)
-            }, 2000)
-        }
-
-    }
-
-    const createFloatingNumber = (event:React.MouseEvent<HTMLButtonElement, MouseEvent>, number: number) => {
-        const span = document.createElement('span');
-        span.textContent = `+${setDecimalBalance(number)}`;
-        span.className = styles.floatingNumber;
-        span.style.left = `${event.clientX}px`;
-        span.style.top = `${event.clientY}px`;
-        document.body.appendChild(span);
-
-        setTimeout(() => {
-            span.style.transform = 'translateY(-50px)';
-            span.style.opacity = '0';
-        }, 0);
-
-        setTimeout(() => {
-            span.remove();
-        }, 1000);
-    };
+    const balanceRef = useRef(null);
 
     return (
         <div className={"container"}>
@@ -82,7 +28,7 @@ const MainPage = () => {
                 <div className={styles.main_balance}>
                     <img draggable={false} src="/token.png" alt=""/>
                     {userData.is_loaded ?
-                        <span>
+                        <span ref={balanceRef}>
                             {setDecimalBalance(userData.balance)}
                         </span>
                         : <BalanceSkeleton/>
@@ -118,14 +64,7 @@ const MainPage = () => {
                     </div>
                 </div>
                 : <EnergySkeleton /> }
-
-            {userData.is_loaded ?
-                <button
-                    onClick={(e) => doClick(e)}
-                    className={`${styles.button} ${userData.energy < 1 ? 'no-energy' : ''}`}
-                >
-                </button>
-            : <ButtonSkeleton />}
+                <ClickerButton balanceRef={balanceRef} />
         </div>
     );
 };
