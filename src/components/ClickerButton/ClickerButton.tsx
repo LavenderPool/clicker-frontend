@@ -11,21 +11,16 @@ import {UserSlice} from "../../store/reducers/UserSlice";
 const ClickerButton = ({balanceRef}) => {
     const [haveTouch, setHaveTouch] = useState<boolean>(false)
     const [clickerState, setClickerState] = useState<boolean>(true);
-    const [touches, setTouches] = useState([]);
 
     const dispatch = useAppDispatch();
     const { removeClickFromBalance, addClickToBalance, setEnergy } = UserSlice.actions;
 
     const userData = useAppSelector(state => state.UserReducer)
 
-    const handleTouchStart = (e) => {
+    const handleTouchStart = () => {
         setHaveTouch(true)
-        setTouches(Array.from(e.touches));
     };
 
-    const handleTouchMove = (e) => {
-        setTouches(Array.from(e.touches));
-    };
     const handleTouchEnd = (e) => {
         const updatedTouches = Array.from(e.changedTouches);
 
@@ -33,8 +28,6 @@ const ClickerButton = ({balanceRef}) => {
         updatedTouches.forEach(touch => {
             doClick(touch, false);
         });
-
-        setTouches(Array.from(e.touches));
     };
 
 
@@ -81,8 +74,8 @@ const ClickerButton = ({balanceRef}) => {
         const img = document.createElement('img');
         img.src = '/penis.svg';
         img.className = styles.floatingImage;
-        img.style.left = `${event.clientX}px`;
-        img.style.top = `${event.clientY}px`;
+        img.style.left = `${event.clientX - 45}px`;
+        img.style.top = `${event.clientY - 25}px`;
         document.body.appendChild(img);
 
         if (balanceRef.current) {
@@ -109,7 +102,6 @@ const ClickerButton = ({balanceRef}) => {
             {userData.is_loaded ?
                 <div
                     onTouchStart={handleTouchStart}
-                    onTouchMove={handleTouchMove}
                     onTouchEnd={handleTouchEnd}
                     // @ts-ignore
                     onClick={(e: React.MouseEvent<MouseEvent>,) => doClick(e)}
