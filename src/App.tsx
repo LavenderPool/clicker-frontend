@@ -70,16 +70,16 @@ const App = () => {
         const now = Date.now();
 
         const elapsedTime = (now - storedTimestamp) / 1000;
-        console.log(elapsedTime);
+        console.log('elapsedTime: ' + elapsedTime);
         const energyGained = elapsedTime * energyInSecond;
-        console.log(energyGained);
+        console.log('energyGained ' + energyGained);
 
-        if(energyGained >= 0.1){
+        if(elapsedTime > 10){
             const newEnergy = Math.min(initialEnergy + energyInSecond, 200);
-
             dispatch(incrementEnergy(newEnergy - initialEnergy));
-            localStorage.setItem('lastUpdateTimestamp', now.toString());
         }
+
+        localStorage.setItem('lastUpdateTimestamp', now.toString());
 
         const intervalId = setInterval(() => {
             if (initialEnergy >= 200) return;
@@ -87,11 +87,11 @@ const App = () => {
             const newEnergy = Math.min(initialEnergy + energyInSecond, 200);
             const energyToDispatch = newEnergy - initialEnergy;
 
-            dispatch(incrementEnergy(energyToDispatch));
+            dispatch(incrementEnergy(energyToDispatch+10));
         }, 1000);
 
         return () => clearInterval(intervalId);
-    }, [userData.hours, userData.energy, dispatch]);
+    }, [userData.hours, userData.energy]);
 
     useEffect(() => {
         if(initDataRaw && initDataRaw.length > 0){
