@@ -70,7 +70,9 @@ const App = () => {
         const now = Date.now();
 
         const elapsedTime = (now - storedTimestamp) / 1000;
+        console.log(elapsedTime);
         const energyGained = elapsedTime * energyInSecond;
+        console.log(energyGained);
 
         if(energyGained >= 0.1){
             const newEnergy = Math.min(initialEnergy + energyInSecond, 200);
