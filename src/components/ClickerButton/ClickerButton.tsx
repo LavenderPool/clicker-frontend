@@ -74,7 +74,7 @@ const ClickerButton = ({balanceRef}) => {
                 setClickerState(true)
             }, 2000)
         }
-
+        localStorage.setItem('lastUpdateTimestamp', Date.now().toString());
     }
 
     const createFloatingNumber = (event:React.MouseEvent<HTMLButtonElement, MouseEvent>) => {

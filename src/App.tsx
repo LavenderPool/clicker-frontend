@@ -65,34 +65,22 @@ const App = () => {
         const oneEnergySeconds = userCircleSeconds / 200 - 0.005;
         const energyInSecond = 1 / oneEnergySeconds;
         const initialEnergy = userData.energy;
-
-        const storedTimestamp = parseFloat(localStorage.getItem('lastUpdateTimestamp') || '0');
         const now = Date.now();
 
+        let storedTimestamp = parseFloat(localStorage.getItem('lastUpdateTimestamp') || now.toString())
+
         const elapsedTime = (now - storedTimestamp) / 1000;
-        console.log('elapsedTime: ' + elapsedTime);
+
         const energyGained = elapsedTime * energyInSecond;
-        console.log('energyGained ' + energyGained);
-
-        if(elapsedTime > 10){
-            const newEnergy = Math.min(initialEnergy + energyInSecond, 200);
-            dispatch(incrementEnergy(newEnergy - initialEnergy));
-        }
-
-        localStorage.setItem('lastUpdateTimestamp', now.toString());
 
         const intervalId = setInterval(() => {
-            if (initialEnergy >= 200) return;
-
-            const newEnergy = Math.min(initialEnergy + energyInSecond, 200);
-            const energyToDispatch = newEnergy - initialEnergy;
-
-            dispatch(incrementEnergy(energyToDispatch));
+            const newEnergy = Math.min(initialEnergy + energyGained, 200);
+            dispatch(incrementEnergy(newEnergy - initialEnergy));
+            localStorage.setItem('lastUpdateTimestamp', now.toString());
         }, 1000);
 
         return () => clearInterval(intervalId);
-        // @ts-ignore
-    }, [userData.hours, userData.energy, window.Telegram.WebApp.isExpanded]);
+    }, [userData.hours, userData.energy, dispatch]);
 
     useEffect(() => {
         if(initDataRaw && initDataRaw.length > 0){
