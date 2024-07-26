@@ -91,7 +91,8 @@ const App = () => {
         }, 1000);
 
         return () => clearInterval(intervalId);
-    }, [userData.hours, userData.energy]);
+        // @ts-ignore
+    }, [userData.hours, userData.energy, window.Telegram.WebApp.isExpanded]);
 
     useEffect(() => {
         if(initDataRaw && initDataRaw.length > 0){
