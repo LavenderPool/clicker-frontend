@@ -59,28 +59,37 @@ const App = () => {
     }
 
     useEffect(() => {
-        if (userData.hours && userData.energy ) {
-            const userCircleSeconds = userData.hours * 3600;
-            const oneEnergySeconds = userCircleSeconds / 200 - 0.005;
-            let energyInSecond = 1 / oneEnergySeconds;
-            //@ts-ignore
-            const energy = parseFloat(userData.energy)
+        if (!userData.hours || !userData.energy) return;
 
-            const intervalId = setInterval(() => {
-                if (energy < 200) {
-                    //@ts-ignore
-                    let newEnergy = parseFloat(energy) + parseFloat(energyInSecond);
-                    if (newEnergy > 200) {
-                        newEnergy = 200
-                    }
-                    const for_dispatch = newEnergy - energy
-                    dispatch(incrementEnergy(for_dispatch));
-                }
-            }, 1000);
+        const userCircleSeconds = userData.hours * 3600;
+        const oneEnergySeconds = userCircleSeconds / 200 - 0.005;
+        const energyInSecond = 1 / oneEnergySeconds;
+        const initialEnergy = userData.energy;
 
-            return () => clearInterval(intervalId);
+        const storedTimestamp = parseFloat(localStorage.getItem('lastUpdateTimestamp') || '0');
+        const now = Date.now();
+
+        const elapsedTime = (now - storedTimestamp) / 1000;
+        const energyGained = elapsedTime * energyInSecond;
+
+        if(energyGained >= 0.1){
+            const newEnergy = Math.min(initialEnergy + energyInSecond, 200);
+
+            dispatch(incrementEnergy(newEnergy - initialEnergy));
+            localStorage.setItem('lastUpdateTimestamp', now.toString());
         }
-    }, [userData.hours, userData.energy]);
+
+        const intervalId = setInterval(() => {
+            if (initialEnergy >= 200) return;
+
+            const newEnergy = Math.min(initialEnergy + energyInSecond, 200);
+            const energyToDispatch = newEnergy - initialEnergy;
+
+            dispatch(incrementEnergy(energyToDispatch));
+        }, 1000);
+
+        return () => clearInterval(intervalId);
+    }, [userData.hours, userData.energy, dispatch]);
 
     useEffect(() => {
         if(initDataRaw && initDataRaw.length > 0){
