@@ -87,7 +87,7 @@ const App = () => {
             const newEnergy = Math.min(initialEnergy + energyInSecond, 200);
             const energyToDispatch = newEnergy - initialEnergy;
 
-            dispatch(incrementEnergy(energyToDispatch+10));
+            dispatch(incrementEnergy(energyToDispatch));
         }, 1000);
 
         return () => clearInterval(intervalId);
