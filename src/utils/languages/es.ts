@@ -64,4 +64,6 @@ export const es_translation = {
     "account_age": "Edad de la cuenta",
 
     "continue": "Continuar",
+
+    "tasks_new": "Nuevo",
 }

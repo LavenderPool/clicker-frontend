@@ -64,4 +64,6 @@ export const id_translation = {
     "account_age": "Usia akun",
 
     "continue": "Lanjutkan",
+
+    "tasks_new": "Baru",
 }

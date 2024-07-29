@@ -1,41 +1,25 @@
 import styles from './FriendsPage.module.scss'
-import {useEffect, useState} from "react";
-import ReferralService from "../../services/ReferralService";
+import {useState} from "react";
 import {initUtils} from "@tma.js/sdk";
 import {getShareUrl, getUserAvatar, setDecimalBalance} from "../../utils/helpers";
-import {useAppDispatch, useAppSelector} from "../../hooks/redux.ts";
-import {ReferralsSlice} from "../../store/reducers/ReferralsSlice.ts";
+import {useAppSelector} from "../../hooks/redux.ts";
 import ReferralsListSkeleton from "../../components/Skeletons/ReferralsListSkeleton.tsx";
 import {useTranslation} from "react-i18next";
 
 const FriendsPage = () => {
     const { t } = useTranslation();
 
-    const [shareUrl, setShareUrl] = useState<string>('');
     const [isCopied, setIsCopied] = useState<boolean>(false);
     const referrals = useAppSelector(state => state.ReferralsReducer);
 
     const utils = initUtils();
 
-    const dispatch = useAppDispatch();
-    const { setReferrals, setReferralsCount, setInviteCode } = ReferralsSlice.actions;
-
-    const getReferrals = async () => {
-        try {
-            const res = await ReferralService.getReferrals()
-            console.log(res);
-            dispatch(setReferrals(res.data.referrals.data))
-            dispatch(setReferralsCount(res.data.referral_count))
-            dispatch(setInviteCode(res.data.invite_code))
-            setShareUrl(getShareUrl(res.data.invite_code))
-            console.log(res);
-        }catch (e) {
-            console.log(e);
-        }
-    }
 
     const copyToClipboard = () => {
-        navigator.clipboard.writeText(shareUrl);
+        if(!referrals.inviteCode){
+            return 0
+        }
+        navigator.clipboard.writeText(getShareUrl(referrals.inviteCode));
         setIsCopied(true)
         setTimeout(() => {
             setIsCopied(false)
@@ -43,11 +27,11 @@ const FriendsPage = () => {
     }
 
     const shareLink = () => {
-        utils.shareURL(shareUrl, t('friends_link'));
+        if(!referrals.inviteCode){
+            return 0
+        }
+        utils.shareURL(getShareUrl(referrals.inviteCode), t('friends_link'));
     }
-    useEffect(() => {
-        getReferrals()
-    }, [])
 
     return (
         <div className={styles.friends}>

@@ -25,29 +25,22 @@ const TasksPage = () => {
     const { incrementBalance, decrementBalance } = UserSlice.actions
     const [loadingTasks, setLoadingTasks] = useState({});
     const navigate = useNavigate()
+    const referrals_count = useAppSelector(state => state.ReferralsReducer.count)
 
     const changeSelectedMode = (mode:Mode) => {
         setSelectedMode(mode)
         if(tasksData.tasks){
             if(mode == 'all'){
-                setTasks(tasksData.tasks)
+                setTasks(tasksData.tasks.filter(task => !task.completed))
             }else{
                 setTasks(tasksData.tasks.filter(task => task.completed))
             }
         }
     }
 
-    const getTasks = async () => {
-        try{
-            const res = await TaskService.getTasks();
-            dispatch(storeTasks(res.data.tasks))
-            console.log(res);
-        }catch (e){
-            console.log(e);
-        }
-    }
 
     const doClick = async (task:Task) => {
+        console.log(task);
         if(task.user_task != null && task.user_task.task_collected == false){
             try {
                 dispatch(incrementBalance(task.user_task.reward))
@@ -62,20 +55,72 @@ const TasksPage = () => {
             }
         }
         if(task.user_task == null){
-            try {
-                const res = await TaskService.addTgTry(task.id)
-                console.log(res);
-                window.location.href = task.link
+            doTask(task)
+        }
+    }
 
-                setLoadingTasks(prevState => ({ ...prevState, [task.id]: true }));
+    const doTask = (task) => {
+        switch (task.type){
+            case "telegram_chat":
+                doTelegramGroup(task)
+                break
+            case "site":
+                doLink(task)
+                break
+            case "friends":
+                doFriends(task)
+                break
+        }
+    }
 
-                setTimeout(() => {
-                    checkTask(task.id)
-                    setLoadingTasks(prevState => ({ ...prevState, [task.id]: false }));
-                }, 9000);
-            }catch (e){
-                console.log(e);
-            }
+    const doTelegramGroup = async (task) => {
+        try{
+            setLoadingTasks(prevState => ({ ...prevState, [task.id]: true }));
+
+            const res = await TaskService.addTgTry(task.id)
+            console.log(res);
+            window.location.href = task.link
+
+            setTimeout(() => {
+                checkTask(task.id)
+                setLoadingTasks(prevState => ({ ...prevState, [task.id]: false }));
+            }, 9000);
+        }catch (e){
+            sendErrorMessage('server error')
+        }
+    }
+
+    const doLink = async (task) => {
+        try{
+            setLoadingTasks(prevState => ({ ...prevState, [task.id]: true }));
+
+            const res = await TaskService.claimLink(task.id)
+            window.location.href = task.link
+            dispatch(makeTaskCompleted({
+                user_task: res.data.success,
+                task_id: task.id
+            }))
+            setTimeout(() => {
+                setLoadingTasks(prevState => ({ ...prevState, [task.id]: false }));
+            }, 9000);
+        }catch(e){
+            sendErrorMessage('server error')
+        }
+    }
+
+    const doFriends = async (task) => {
+        try{
+            setLoadingTasks(prevState => ({ ...prevState, [task.id]: true }));
+
+            const res = await TaskService.claimFriends(task.id)
+            console.log(res);
+            dispatch(makeTaskCompleted({
+                user_task: res.data.success,
+                task_id: task.id
+            }))
+        }catch(e){
+            console.log(e);
+            sendErrorMessage('server error')
         }
     }
 
@@ -94,14 +139,8 @@ const TasksPage = () => {
     }
 
     useEffect(() => {
-        if(!tasksData.is_loaded){
-            getTasks()
-        }
-    }, []);
-
-    useEffect(() => {
         if(tasksData.tasks){
-            setTasks(tasksData.tasks)
+            setTasks(tasksData.tasks.filter(task => !task.completed))
         }
     }, [tasksData]);
 
@@ -132,7 +171,7 @@ const TasksPage = () => {
                     <span
                         className={`${selectedMode == 'all' ? 'active' : ''}`}
                         onClick={() => changeSelectedMode('all')}
-                    >{ t('tasks.all') }</span>
+                    >{ t('tasks_new') }</span>
                     <span
                         className={`${selectedMode == 'completed' ? 'active' : ''}`}
                         onClick={() => changeSelectedMode('completed')}
@@ -147,21 +186,38 @@ const TasksPage = () => {
 
                     {tasks?.map((task: Task) => (
                         <div key={task.id} className={styles.task}>
-                            {task.type == 'telegram_chat' ?
-                                <img src="/svgs/telegram.svg" className={styles.task_img} alt="tg"/>
-                                :
-                                <img src="/avatar-empty.png" className={styles.task_img} alt="tg"/>
+                            {
+                                task.type == 'telegram_chat' ?
+                                <img src="/svgs/telegram.svg" className={styles.task_img} alt="tg"/> :
+
+                                task.type == 'friends' ?
+                                    <img src="/svgs/person-raised-hand.svg" className={styles.task_img} alt="tg"/> :
+
+                                task.type == 'site' ?
+                                    <img src="/svgs/globe.svg" className={styles.task_img} alt="tg"/> :
+
+                                    <img src="/avatar-empty.png" className={styles.task_img} alt="tg"/>
                             }
 
                             <div className={styles.task_info}>
-                                <div>{task.title}</div>
+                            <div className={styles.task_title}>
+                                {task.title}
+                                {
+                                    task.type == 'friends' ? <span className={styles.task_friends_count}>{referrals_count}/{task.friends_count}</span> :''
+                                }
+                            </div>
                                 <span className={styles.task_tokens}>
                                 <img src="/token.png" alt=""/>
                                 + {task.reward / 100}
                             </span>
                             </div>
 
-                            <div onClick={() => doClick(task)} className={`${styles.task_button} ${task.user_task && !task.user_task.task_collected ? 'claim' : ''}`}>
+                            <div onClick={() => doClick(task)} className={`
+                            ${styles.task_button} 
+                            ${task.user_task && !task.user_task.task_collected ? 'claim' : ''}
+                            ${task.type == 'friends' && referrals_count < task.friends_count ? 'disabled' : ''}
+                            ${loadingTasks[task.id] ? 'disabled' : ''}
+                            `}>
                                 {task.user_task ?
                                     <div>
                                         {task.user_task.task_collected ?

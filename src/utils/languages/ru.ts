@@ -65,4 +65,6 @@ export const ru_translation = {
     "account_age": "Возраст аккаунта",
 
     "continue": "Продолжить",
+
+    "tasks_new": "Новые",
 }

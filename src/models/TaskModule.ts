@@ -4,6 +4,8 @@ export interface Task {
     type: string,
     title: string,
     reward: number,
+    order: number,
+    friends_count: number,
 
     id: number,
 

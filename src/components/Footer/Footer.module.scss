@@ -34,6 +34,7 @@
         color: unset;
         max-width: 33%;
         width: 33%;
+        position: relative;
         img{
             opacity: 0.5;
         }
@@ -60,6 +61,21 @@
             }
             span{
                 color: var(--footer-active-color);
+            }
+        }
+        &:global(.new){
+
+            &:before{
+                content: "";
+                background: #fb6c6c;
+                width: 10px;
+                height: 10px;
+                position: absolute;
+                z-index: 2;
+                margin-left: 25px;
+                top: 3px;
+                border-radius: 50%;
+                display: block;
             }
         }
     }

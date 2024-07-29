@@ -9,11 +9,20 @@ const $api = axios.create({
     }
 })
 
+//@ts-ignore
 $api.interceptors.request.use(async config => {
 
-    if (config.headers)
+    if (config.headers){
         config.headers.Authorization = initDataRaw
 
-    return config
+        const timezoneOffsetMinutes = new Date().getTimezoneOffset();
+        const offsetHours = -timezoneOffsetMinutes / 60;
+        const roundedOffset = Math.round(offsetHours);
+        const clampedOffset = Math.max(-11, Math.min(14, roundedOffset));
+        config.headers['Timezone'] = clampedOffset;
+
+        return config
+    }
+
 })
 export default $api;

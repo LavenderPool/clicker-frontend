@@ -16,4 +16,11 @@ export default class TaskService {
     static async checkTask(task_id: number){
         return await $api.get(`/task/check/${task_id}`)
     }
+
+    static async claimLink(task_id: number) {
+        return await $api.get(`/task/claim-link/${task_id}`)
+    }
+    static async claimFriends(task_id: number) {
+        return await $api.get(`/task/claim-friends/${task_id}`)
+    }
 }

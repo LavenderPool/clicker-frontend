@@ -2,15 +2,16 @@ import styles from './Footer.module.scss'
 import {NavLink, useLocation} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import {useEffect, useState} from "react";
+import {useAppSelector} from "../../hooks/redux.ts";
 
 const Footer = () => {
     const { t } = useTranslation();
     const [show, setShow] = useState<boolean>(true)
+    const tasksData = useAppSelector(state => state.TasksReducer.tasks)
     const location = useLocation();
 
     useEffect(() => {
         const paths = ['/reward', '/profile', '/start', '/age-reward', '/share-link'];
-
         if (paths.some(path => location.pathname.startsWith(path))) {
             console.log('Pathname starts with /reward');
             setShow(false)
@@ -29,7 +30,7 @@ const Footer = () => {
                             <img src="/footer/home.svg" alt=""/>
                             <span>{t('home')}</span>
                         </NavLink>
-                        <NavLink className={styles.footer_link} to={'/tasks'}>
+                        <NavLink className={`${styles.footer_link} ${tasksData && tasksData.filter(i => !i.completed).length > 0 ? 'new' : ''}`} to={'/tasks'}>
                             <img src="/footer/tasks.svg" alt=""/>
                             <span>{t('tasks')}</span>
                         </NavLink>

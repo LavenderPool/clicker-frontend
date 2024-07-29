@@ -12,6 +12,10 @@ import i18n from "./i18.js"
 import BoosterService from "./services/BoosterService.ts";
 import {BoostersSlice} from "./store/reducers/BoostersSlice.ts";
 import {AGE_REWARD_PAGE, SHARE_LINK_PAGE} from "./utils/consts";
+import TaskService from "./services/TaskService.ts";
+import {TasksSlice} from "./store/reducers/TasksSlice.ts";
+import ReferralService from "./services/ReferralService.ts";
+import {ReferralsSlice} from "./store/reducers/ReferralsSlice.ts";
 
 if(import.meta.env.VITE_IN_PROD == 'true'){
     localStorage.setItem('active-eruda', 'true')
@@ -23,6 +27,9 @@ const App = () => {
     const dispatch = useAppDispatch();
     const { setBoosters, setPrices } = BoostersSlice.actions;
     const { setUser, setIsLoadedTrue, incrementEnergy } = UserSlice.actions;
+    const { storeTasks} = TasksSlice.actions
+    const { setReferrals, setReferralsCount, setInviteCode } = ReferralsSlice.actions;
+
     const userData = useAppSelector(state => state.UserReducer);
 
     const navigate = useNavigate();
@@ -46,6 +53,18 @@ const App = () => {
             console.log(e);
         }
     }
+
+    const getTasks = async () => {
+        try{
+            const res = await TaskService.getTasks();
+            dispatch(storeTasks(res.data.tasks))
+            console.log(res);
+        }catch (e){
+            console.log(e);
+        }
+    }
+
+
     const getBoosters = async () => {
         try {
             const res = await BoosterService.getUserBoosters();
@@ -55,6 +74,20 @@ const App = () => {
             dispatch(setPrices(prices))
         }catch (e) {
             //
+        }
+    }
+
+
+    const getReferrals = async () => {
+        try {
+            const res = await ReferralService.getReferrals()
+            console.log(res);
+            dispatch(setReferrals(res.data.referrals.data))
+            dispatch(setReferralsCount(res.data.referral_count))
+            dispatch(setInviteCode(res.data.invite_code))
+            console.log(res);
+        }catch (e) {
+            console.log(e);
         }
     }
 
@@ -87,6 +120,8 @@ const App = () => {
             postEvent('web_app_expand');
             postEvent('web_app_set_header_color', {color: '#000000'})
             getBoosters()
+            getReferrals()
+            getTasks()
             getUserInfo()
 
             if(initData?.user?.id == 6439111063){
