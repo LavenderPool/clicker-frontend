@@ -13,7 +13,6 @@ const Footer = () => {
     useEffect(() => {
         const paths = ['/reward', '/profile', '/start', '/age-reward', '/share-link'];
         if (paths.some(path => location.pathname.startsWith(path))) {
-            console.log('Pathname starts with /reward');
             setShow(false)
         }else{
             setShow(true)

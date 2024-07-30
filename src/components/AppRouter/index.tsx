@@ -14,6 +14,9 @@ const AppRouter = () => {
                 ))}
             </Route>
 
+            <Route path={'/r'}>
+
+            </Route>
             <Route path={START_PAGE} element={<StartPage />} />
         </Routes>
     )

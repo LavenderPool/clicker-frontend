@@ -1,5 +1,4 @@
 //@ts-nocheck
-
 import styles from "../../pages/MainPage/MainPage.module.scss";
 import ButtonSkeleton from "../Skeletons/ButtonSkeleton";
 import {useAppDispatch, useAppSelector} from "../../hooks/redux";

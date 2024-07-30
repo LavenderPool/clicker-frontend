@@ -4,14 +4,13 @@ import svgr from "vite-plugin-svgr"
 import mkcert from 'vite-plugin-mkcert'
 import tsconfigPaths from 'vite-tsconfig-paths';
 
-
 export default defineConfig(({command}) => {
     if(command == "serve"){
         return {
             plugins: [
                 react(),
                 svgr(),
-                mkcert()
+                mkcert(),
             ],
             build: {
                 target: 'esnext'

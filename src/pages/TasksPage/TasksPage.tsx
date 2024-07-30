@@ -12,6 +12,7 @@ import {sendErrorMessage, setDecimalBalance} from "../../utils/helpers.ts";
 import {useNavigate} from "react-router-dom";
 import toast from "react-hot-toast";
 import i18next from "i18next";
+import {postEvent} from "@tma.js/sdk-react";
 
 type Mode = "all" | "completed"
 
@@ -76,11 +77,9 @@ const TasksPage = () => {
     const doTelegramGroup = async (task) => {
         try{
             setLoadingTasks(prevState => ({ ...prevState, [task.id]: true }));
-
             const res = await TaskService.addTgTry(task.id)
             console.log(res);
             window.location.href = task.link
-
             setTimeout(() => {
                 checkTask(task.id)
                 setLoadingTasks(prevState => ({ ...prevState, [task.id]: false }));
@@ -93,16 +92,19 @@ const TasksPage = () => {
     const doLink = async (task) => {
         try{
             setLoadingTasks(prevState => ({ ...prevState, [task.id]: true }));
-
             const res = await TaskService.claimLink(task.id)
-            window.location.href = task.link
-            dispatch(makeTaskCompleted({
-                user_task: res.data.success,
-                task_id: task.id
-            }))
+
+            window.location = task.link
+
             setTimeout(() => {
                 setLoadingTasks(prevState => ({ ...prevState, [task.id]: false }));
-            }, 9000);
+
+                dispatch(makeTaskCompleted({
+                    user_task: res.data.success,
+                    task_id: task.id
+                }))
+
+            }, 20000);
         }catch(e){
             sendErrorMessage('server error')
         }
@@ -111,13 +113,12 @@ const TasksPage = () => {
     const doFriends = async (task) => {
         try{
             setLoadingTasks(prevState => ({ ...prevState, [task.id]: true }));
-
             const res = await TaskService.claimFriends(task.id)
-            console.log(res);
             dispatch(makeTaskCompleted({
                 user_task: res.data.success,
                 task_id: task.id
             }))
+            setLoadingTasks(prevState => ({ ...prevState, [task.id]: false }));
         }catch(e){
             console.log(e);
             sendErrorMessage('server error')
@@ -145,23 +146,21 @@ const TasksPage = () => {
     }, [tasksData]);
 
     const sendRewardToast = (reward: number | string) => {
-        toast((tt) => (
+        toast(({ id }) => (
             <div className={styles.tasks_toast}>
                 <div>
-                    <span>{ t('tasks.claimed') }</span>
+                    <span>{t('tasks.claimed')}</span>
                     <span className={styles.tasks_toast_reward}>
-                        <img src="/token.png" alt=""/>
-                        +{ setDecimalBalance(reward) }
-                    </span>
+                        <img src="/token.png" alt="" />
+                        +{setDecimalBalance(reward)}
+                     </span>
                 </div>
-                <span className={styles.tasks_toast_close} onClick={() => toast.dismiss(tt.id)}>
-                    <img src="/svgs/close.svg" alt=""/>
+                <span className={styles.tasks_toast_close} onClick={() => toast.dismiss(id)}>
+                    <img src="/svgs/close.svg" alt="" />
                 </span>
             </div>
-        ), {style: {
-                background: '#3E8624'
-            }});
-    }
+        ), { style: { background: '#3E8624' } });
+    };
 
     return (
         <div>
