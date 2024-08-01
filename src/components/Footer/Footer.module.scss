@@ -56,9 +56,9 @@
         }
 
         &:global(.active){
-            animation: none!important;
             img{
                 opacity: 1;
+                animation: none!important;
             }
             span{
                 color: var(--footer-active-color);
