@@ -72,6 +72,7 @@ const TasksPage = () => {
                 doFriends(task)
                 break
         }
+        changeSelectedMode('completed')
     }
 
     const doTelegramGroup = async (task) => {
