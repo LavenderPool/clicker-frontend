@@ -65,8 +65,12 @@
             }
         }
         &:global(.new){
-            opacity: 1;
-            animation: 1s blink alternate infinite;
+
+            img{
+                animation: 1s blink alternate infinite;
+                opacity: 1;
+                transform: scale(1);
+            }
             &:before{
                 content: "";
                 background: #fb6c6c;
@@ -85,6 +89,6 @@
 }
 
 @keyframes blink {
-    from { opacity: 1; transform: scale(0.95) }
+    from { opacity: 1; transform: scale(0.9) }
     to { opacity: 0.5; transform: scale(1) }
 }
