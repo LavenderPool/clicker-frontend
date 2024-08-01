@@ -56,6 +56,7 @@
         }
 
         &:global(.active){
+            animation: none!important;
             img{
                 opacity: 1;
             }
@@ -64,7 +65,8 @@
             }
         }
         &:global(.new){
-
+            opacity: 1;
+            animation: 1s blink alternate infinite;
             &:before{
                 content: "";
                 background: #fb6c6c;
@@ -76,7 +78,13 @@
                 top: 3px;
                 border-radius: 50%;
                 display: block;
+
             }
         }
     }
+}
+
+@keyframes blink {
+    from { opacity: 1; transform: scale(0.95) }
+    to { opacity: 0.5; transform: scale(1) }
 }
