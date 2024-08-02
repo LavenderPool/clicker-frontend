@@ -11,9 +11,7 @@ interface UserState {
     hours: number,
     invite_code: string,
     age_feature: boolean,
-
-
-    first_energy_change: boolean
+    first_energy_change: boolean,
 }
 
 const initialState: UserState = {
@@ -25,6 +23,7 @@ const initialState: UserState = {
     hours: 0,
     invite_code: '',
     age_feature: false,
+
     first_energy_change: true,
 }
 
@@ -62,11 +61,10 @@ export const UserSlice = createSlice({
             state.energy = action.payload
         },
         incrementEnergy(state, action:PayloadAction<number>){
-            //@ts-ignore
             if(state.first_energy_change){
                 state.first_energy_change = false
             }else{
-                state.energy = parseFloat(state.energy) + parseFloat(action.payload)
+                state.energy = state.energy + action.payload
             }
         },
         editPublicName(state, action:PayloadAction<string>){
