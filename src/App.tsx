@@ -16,6 +16,7 @@ import TaskService from "./services/TaskService.ts";
 import {TasksSlice} from "./store/reducers/TasksSlice.ts";
 import ReferralService from "./services/ReferralService.ts";
 import {ReferralsSlice} from "./store/reducers/ReferralsSlice.ts";
+import {isNumber} from "./utils/helpers.ts";
 
 if(import.meta.env.VITE_IN_PROD == 'true'){
     localStorage.setItem('active-eruda', 'true')
@@ -95,7 +96,7 @@ const App = () => {
         if (!userData.hours || !userData.energy) return;
 
         const userCircleSeconds = userData.hours * 3600;
-        const oneEnergySeconds = userCircleSeconds / 200 - 0.005;
+        const oneEnergySeconds = userCircleSeconds / 200 - 0.001;
         const energyInSecond = 1 / oneEnergySeconds;
         const initialEnergy = userData.energy;
         const now = Date.now();
@@ -108,7 +109,9 @@ const App = () => {
 
         const intervalId = setInterval(() => {
             const newEnergy = Math.min(initialEnergy + energyGained, 200);
-            dispatch(incrementEnergy(newEnergy - initialEnergy));
+            if (isNumber(newEnergy) && isNumber(initialEnergy)) {
+                dispatch(incrementEnergy(newEnergy - initialEnergy));
+            }
             localStorage.setItem('lastUpdateTimestamp', now.toString());
         }, 1000);
 
