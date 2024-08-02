@@ -111,8 +111,8 @@ const App = () => {
             const newEnergy = Math.min(initialEnergy + energyGained, 200);
             if (isNumber(newEnergy) && isNumber(initialEnergy)) {
                 dispatch(incrementEnergy(newEnergy - initialEnergy));
+                localStorage.setItem('lastUpdateTimestamp', now.toString());
             }
-            localStorage.setItem('lastUpdateTimestamp', now.toString());
         }, 1000);
 
         return () => clearInterval(intervalId);
