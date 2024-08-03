@@ -19,6 +19,8 @@ import {ReferralsSlice} from "./store/reducers/ReferralsSlice.ts";
 import {isNumber} from "./utils/helpers.ts";
 
 if(import.meta.env.VITE_IN_PROD == 'true'){
+    localStorage.setItem('active-eruda', 'false')
+}else{
     localStorage.setItem('active-eruda', 'true')
 }
 
