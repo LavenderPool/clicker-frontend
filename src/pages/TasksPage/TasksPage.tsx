@@ -1,4 +1,4 @@
-// @ts-nocheck
+//@ts-nocheck
 
 import styles from './Tasks.module.scss'
 import {useEffect, useState} from "react";
@@ -12,7 +12,7 @@ import {sendErrorMessage, setDecimalBalance} from "../../utils/helpers.ts";
 import {useNavigate} from "react-router-dom";
 import toast from "react-hot-toast";
 import i18next from "i18next";
-import {postEvent} from "@tma.js/sdk-react";
+import TadsComponent from "../../components/TadsComponent/TadsComponent.tsx";
 
 type Mode = "all" | "completed"
 
@@ -22,7 +22,7 @@ const TasksPage = () => {
     const [tasks, setTasks] = useState<Task[]>()
     const dispatch = useAppDispatch()
     const tasksData = useAppSelector(state => state.TasksReducer)
-    const { storeTasks, enableTaskCollected, makeTaskCompleted, disableTaskCollected } = TasksSlice.actions
+    const { enableTaskCollected, makeTaskCompleted, disableTaskCollected, changePopupState } = TasksSlice.actions
     const { incrementBalance, decrementBalance } = UserSlice.actions
     const [loadingTasks, setLoadingTasks] = useState({});
     const navigate = useNavigate()
@@ -60,7 +60,7 @@ const TasksPage = () => {
         }
     }
 
-    const doTask = (task) => {
+    const doTask = (task: Task) => {
         switch (task.type){
             case "telegram_chat":
                 doTelegramGroup(task)
@@ -75,7 +75,7 @@ const TasksPage = () => {
         // changeSelectedMode('completed')
     }
 
-    const doTelegramGroup = async (task) => {
+    const doTelegramGroup = async (task: Task) => {
         try{
             setLoadingTasks(prevState => ({ ...prevState, [task.id]: true }));
             const res = await TaskService.addTgTry(task.id)
@@ -90,7 +90,7 @@ const TasksPage = () => {
         }
     }
 
-    const doLink = async (task) => {
+    const doLink = async (task: Task) => {
         try{
             setLoadingTasks(prevState => ({ ...prevState, [task.id]: true }));
             const res = await TaskService.claimLink(task.id)
@@ -140,6 +140,7 @@ const TasksPage = () => {
         }
     }
 
+
     useEffect(() => {
         if(tasksData.tasks){
             setTasks(tasksData.tasks.filter(task => !task.completed))
@@ -148,15 +149,15 @@ const TasksPage = () => {
 
     const sendRewardToast = (reward: number | string) => {
         toast(({ id }) => (
-            <div className={styles.tasks_toast}>
+            <div className="tasks_toast">
                 <div>
                     <span>{t('tasks.claimed')}</span>
-                    <span className={styles.tasks_toast_reward}>
+                    <span className="tasks_toast_reward">
                         <img src="/token.png" alt="" />
                         +{setDecimalBalance(reward)}
                      </span>
                 </div>
-                <span className={styles.tasks_toast_close} onClick={() => toast.dismiss(id)}>
+                <span className="tasks_toast_close" onClick={() => toast.dismiss(id)}>
                     <img src="/svgs/close.svg" alt="" />
                 </span>
             </div>
@@ -167,6 +168,7 @@ const TasksPage = () => {
         <div>
             <h2 className="page-title">{ t('tasks') }</h2>
             <div className={styles.tasks_mode}>
+
                 <div className={styles.tasks_mode_body}>
                     <span
                         className={`${selectedMode == 'all' ? 'active' : ''}`}
@@ -178,12 +180,13 @@ const TasksPage = () => {
                     >{ t('tasks.completed') }</span>
                 </div>
             </div>
-            <h3 className={styles.tasks_subtitle}>{ t('tasks.subtitle') }</h3>
+            <h3 onClick={() => dispatch(changePopupState())} className={styles.tasks_subtitle}>{ t('tasks.subtitle') }</h3>
+            <TadsComponent />
+
             {!tasksData.is_loaded ?
                 <TasksSkeleton/>
                 :
                 <div className={styles.tasks_list}>
-
                     {tasks?.map((task: Task) => (
                         <div key={task.id} className={styles.task}>
                             {
@@ -238,6 +241,9 @@ const TasksPage = () => {
                     ))}
                 </div>
             }
+
+
+
         </div>
     );
 };

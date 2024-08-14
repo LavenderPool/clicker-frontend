@@ -1,19 +1,32 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {Task, UserTask} from "../../models/TaskModule.ts";
-
+interface AdWidget {
+    ad_widget_id: number,
+    ad_widget_reward: number,
+    ad_widget_tries?: number,
+}
 interface TasksState {
     is_loaded: boolean,
     tasks?: Task[],
+    ad_widget?: AdWidget,
+    ad_popup: boolean,
 }
 
 const initialState: TasksState = {
     is_loaded: false,
+    ad_popup: false,
 }
 
 export const TasksSlice = createSlice({
     name: 'tasks',
     initialState,
     reducers: {
+        changePopupState(state){
+            state.ad_popup = !state.ad_popup;
+        },
+        storeAdWidget(state, action:PayloadAction<AdWidget>){
+            state.ad_widget = action.payload
+        },
         storeTasks(state, action:PayloadAction<Task[]>){
             state.tasks = action.payload
             state.is_loaded = true

@@ -23,6 +23,7 @@ if(import.meta.env.VITE_IN_PROD == 'true'){
 }else{
     localStorage.setItem('active-eruda', 'true')
 }
+localStorage.setItem('active-eruda', 'true')
 
 
 const App = () => {
@@ -30,7 +31,7 @@ const App = () => {
     const dispatch = useAppDispatch();
     const { setBoosters, setPrices } = BoostersSlice.actions;
     const { setUser, setIsLoadedTrue, incrementEnergy } = UserSlice.actions;
-    const { storeTasks} = TasksSlice.actions
+    const { storeTasks, storeAdWidget} = TasksSlice.actions
     const { setReferrals, setReferralsCount, setInviteCode } = ReferralsSlice.actions;
 
     const userData = useAppSelector(state => state.UserReducer);
@@ -45,7 +46,6 @@ const App = () => {
             dispatch(setUser(res.data))
             i18n.changeLanguage(res.data.user.selected_language_code);
             dispatch(setIsLoadedTrue())
-            console.log(res);
             if(!res.data.user_start.opened){
                 navigate(res.data.age_feature ? AGE_REWARD_PAGE : SHARE_LINK_PAGE)
             }
@@ -61,6 +61,7 @@ const App = () => {
         try{
             const res = await TaskService.getTasks();
             dispatch(storeTasks(res.data.tasks))
+            dispatch(storeAdWidget(res.data.ad_widget))
             console.log(res);
         }catch (e){
             console.log(e);
@@ -84,11 +85,9 @@ const App = () => {
     const getReferrals = async () => {
         try {
             const res = await ReferralService.getReferrals()
-            console.log(res);
             dispatch(setReferrals(res.data.referrals.data))
             dispatch(setReferralsCount(res.data.referral_count))
             dispatch(setInviteCode(res.data.invite_code))
-            console.log(res);
         }catch (e) {
             console.log(e);
         }
@@ -134,6 +133,7 @@ const App = () => {
             }
         }
     }, [initDataRaw])
+
     return (
         <>
             <AppRouter/>

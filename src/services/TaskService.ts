@@ -23,4 +23,9 @@ export default class TaskService {
     static async claimFriends(task_id: number) {
         return await $api.get(`/task/claim-friends/${task_id}`)
     }
+
+
+    static async claimAdReward(){
+        return await $api.post(`/task/collect-ad`)
+    }
 }

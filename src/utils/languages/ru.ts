@@ -67,4 +67,9 @@ export const ru_translation = {
     "continue": "Продолжить",
 
     "tasks_new": "Новые",
+
+
+    "tads_title": "Дополнительные задания",
+    "tads_subtitle": "за их выполнение вы получите",
+    "tads_not_found": "Дополнительные задания не найдены",
 }
