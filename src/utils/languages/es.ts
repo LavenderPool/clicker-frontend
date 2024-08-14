@@ -66,4 +66,8 @@ export const es_translation = {
     "continue": "Continuar",
 
     "tasks_new": "Nuevo",
+
+    "tads_title": "Tareas adicionales",
+    "tads_subtitle": "recibirás por completar",
+    "tads_not_found": "No se encontraron tareas adicionales",
 }

@@ -67,4 +67,8 @@ export const en_translation = {
     "continue": "Continue",
 
     "tasks_new": "New",
+
+    "tads_title": "Additional tasks",
+    "tads_subtitle": "you will receive for completing",
+    "tads_not_found": "Additional tasks were not found",
 }

@@ -66,4 +66,8 @@ export const id_translation = {
     "continue": "Lanjutkan",
 
     "tasks_new": "Baru",
+
+    "tads_title": "Tugas tambahan",
+    "tads_subtitle": "Anda akan menerima untuk menyelesaikan",
+    "tads_not_found": "Tugas tambahan tidak ditemukan",
 }

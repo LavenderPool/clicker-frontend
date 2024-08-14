@@ -181,7 +181,7 @@ const TasksPage = () => {
                 </div>
             </div>
             <h3 onClick={() => dispatch(changePopupState())} className={styles.tasks_subtitle}>{ t('tasks.subtitle') }</h3>
-            <TadsComponent />
+            {/*<TadsComponent />*/}
 
             {!tasksData.is_loaded ?
                 <TasksSkeleton/>

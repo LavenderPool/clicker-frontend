@@ -63,7 +63,7 @@ const TadsComponent = () => {
 
                     <div className={styles.tads_body}>
                             <TadsWidget id={`${tasksData.ad_widget?.ad_widget_id}`}
-                                        debug={true}
+                                        debug={false}
                                         onClickReward={() => collectAdReward()}
                                         onAdsNotFound={() => {
                                             setAdFound(false)
