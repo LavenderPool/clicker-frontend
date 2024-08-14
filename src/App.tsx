@@ -23,8 +23,6 @@ if(import.meta.env.VITE_IN_PROD == 'true'){
 }else{
     localStorage.setItem('active-eruda', 'true')
 }
-localStorage.setItem('active-eruda', 'true')
-
 
 const App = () => {
     const { initDataRaw, initData } = retrieveLaunchParams();
