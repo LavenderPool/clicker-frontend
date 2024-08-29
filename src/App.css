@@ -114,3 +114,28 @@ a {
   margin-left: auto;
   display: block;
 }
+
+.up{
+  display: flex;
+  align-items: center;
+  margin-bottom: 32px;
+  }
+.up h2{
+  margin-bottom: 0;
+  font-size: 24px;
+}
+.up a{
+    background: #89898929;
+    border-radius: 40px;
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    margin-right: 16px;
+  }
+
+.up img{
+    width: 24px;
+    height: 24px;
+}

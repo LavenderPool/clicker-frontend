@@ -1,7 +1,13 @@
 {
-    "language": "Language",
-    "share": "Share",
-    "account_link": "Account link",
-    "your_rank": "Your rank",
-    "account_link_subtitle": "When other players follow your referral link, you will be credited with 20% of the coins earned for the entire time they spent in the game"
+    "roulette.title": "Roulette",
+    "roulette.buy": "Buy Spin",
+    "roulette.collect": "Collect spins",
+    "roulette.timer": "Up to free spins",
+    "withdrawal": "Withdrawal",
+    "withdrawal.amount": "Amount",
+    "withdrawal.created": "Withdrawal request created",
+    "shop": "Shop",
+    "shop.buy_spin": "Roulette Spin",
+    "shop.click": "Mega click",
+    "shop.click_description": "Spends all energy in one click"
 }

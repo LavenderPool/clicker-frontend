@@ -1,9 +1,14 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {Task, UserTask} from "../../models/TaskModule.ts";
+
+export type AdWidgetAdsgramShow = "always" | "on_first_end"
 interface AdWidget {
     ad_widget_id: number,
     ad_widget_reward: number,
+    ad_widget_multiply: number[]
     ad_widget_tries?: number,
+    ad_widget_adsgram_show: AdWidgetAdsgramShow,
+    ad_widget_adsgram_id: string,
 }
 interface TasksState {
     is_loaded: boolean,

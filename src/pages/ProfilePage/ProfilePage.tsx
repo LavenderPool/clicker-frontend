@@ -6,7 +6,7 @@ import Popup from "../../components/Popup/Popup";
 import {useEffect, useState} from "react";
 import UserService from "../../services/UserService";
 import {UserSlice} from "../../store/reducers/UserSlice";
-import {languages} from "../../utils/consts";
+import {languages, WITHDRAWAL_USDT} from "../../utils/consts";
 import {useTranslation} from "react-i18next";
 import {initUtils} from "@tma.js/sdk";
 
@@ -107,7 +107,7 @@ const ProfilePage = () => {
             <div className={styles.profile_buttons}>
                 <div className={styles.profile_button}>
                     <div className={styles.profile_button_info}>
-                        <span>{ t('your_rank') }</span>
+                        <span>{t('your_rank')}</span>
                         <span>{getResource(boostersData.power, boostersData.time)}</span>
                     </div>
                     <span className={`${styles.profile_button_right} ${styles.profile_lvls}`}>
@@ -115,14 +115,14 @@ const ProfilePage = () => {
                     </span>
                 </div>
 
-                {userData.user_start && userData.user_start.reward?
+                {userData.user_start && userData.user_start.reward ?
                     <div className={styles.profile_button}>
                         <div className={styles.profile_button_info}>
-                            <span>{ t('account_age') }</span>
+                            <span>{t('account_age')}</span>
                             <span>
                             {userData.user_start ?
                                 <>{userData.user_start.account_age} {userData.user_start.account_age > 1 ? 'Years' : 'Year'}</>
-                                :''
+                                : ''
                             }
                         </span>
                         </div>
@@ -136,30 +136,44 @@ const ProfilePage = () => {
 
                 <div className={styles.profile_button}>
                     <div className={styles.profile_button_info}>
-                        <span>{ t('language') }</span>
+                        <span>{t('language')}</span>
                         <span>{selectedLanguage}</span>
                     </div>
-                    <span onClick={() => setLanguageModal(true)} className={`${styles.profile_button_right} ${styles.profile_language_button}`}>
+                    <span onClick={() => setLanguageModal(true)}
+                          className={`${styles.profile_button_right} ${styles.profile_language_button}`}>
                         <img src="/svgs/arrow_down.svg" alt=""/>
                     </span>
                 </div>
 
                 <div className={styles.profile_button}>
                     <div className={styles.profile_button_info}>
-                        <span>{ t('account_link') }</span>
+                        <span>{t('account_link')}</span>
                     </div>
-                    <span onClick={shareLink} className={`${styles.profile_button_right} ${styles.profile_link_button}`}>
-                        { t('share') }
+                    <span onClick={shareLink}
+                          className={`${styles.profile_button_right} ${styles.profile_link_button}`}>
+                        {t('share')}
                     </span>
+                </div>
+
+
+                <div className={styles.profile_button}>
+                    <div className={styles.profile_button_info}>
+                        <img src="/roulette/usdt.png" alt=""/>
+                        <span>{ userData.usdt }</span>
+                    </div>
+                    <Link to={WITHDRAWAL_USDT}
+                          className={`${styles.profile_button_right} ${styles.profile_link_button}`}>
+                        { t('withdrawal') }
+                    </Link>
                 </div>
             </div>
 
             <div className={styles.profile_link}>
-                { t('account_link_subtitle') }
+                {t('account_link_subtitle')}
             </div>
 
 
-            <Popup visible={nameModal} setVisible={setNameModal} header={ t('public_name') }>
+            <Popup visible={nameModal} setVisible={setNameModal} header={t('public_name')}>
                 <input
                     className={styles.name_input}
                     maxLength={16}

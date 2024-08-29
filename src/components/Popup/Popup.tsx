@@ -24,13 +24,14 @@ const Index: React.FC<Props> =
                 <div className={styles.modal_dialog}>
                     <div className={styles.modal_save}>
                         <div className={`${styles.modal}`} onClick={(e) => e.stopPropagation()}>
+                            {header ?
+                                <div className={styles.modal_header}>
+                                    <div>{header}</div>
+                                </div> : null}
 
-                            <div className={styles.modal_header}>
-                                <div>{header}</div>
-                            </div>
 
                             <div className={styles.modal_body}>
-                                {children}
+                            {children}
                             </div>
                         </div>
                     </div>

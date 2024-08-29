@@ -70,4 +70,23 @@ export const id_translation = {
     "tads_title": "Tugas tambahan",
     "tads_subtitle": "Anda akan menerima untuk menyelesaikan",
     "tads_not_found": "Tugas tambahan tidak ditemukan",
+
+    "roulette.title":"Rolet",
+    "roulette.buy":"Beli Putaran",
+    "roulette.available": "Tersedia untuk pembelian",
+    "roulette.timer": "Hingga putaran gratis",
+    "withdrawal": "Penarikan",
+    "withdrawal.amount": "Jumlah",
+    "withdrawal.created": "Permintaan penarikan telah dibuat",
+    "shop": "Toko",
+    "shop.buy_spin": "Putaran Roulette",
+    "shop.click":"Mega klik",
+    "shop.click_description": "Menghabiskan semua energi dalam satu klik",
+
+    "roulette.invite_spins": "Anda telah kehabisan batas harian untuk membeli putaran",
+    "roulette.invite_formula": "Untuk setiap teman, Anda mendapat kesempatan untuk membeli 3 putaran lagi per hari",
+
+    "ads.watch": "Lihat iklan",
+    "ads.watch_error": "Gagal memuat iklan",
+    "ads.watch_empty": "Komersial sudah berakhir",
 }

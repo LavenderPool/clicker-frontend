@@ -1,6 +1,6 @@
 import ContentLoader from "react-content-loader";
 
-const BalanceSkeleton = () => {
+const EnergyBalanceSkeleton = () => {
     return (
         <div style={{height: '18px', width: '100px'}}>
             <ContentLoader viewBox="0 0 100 18"
@@ -13,4 +13,4 @@ const BalanceSkeleton = () => {
     );
 };
 
-export default BalanceSkeleton;
+export default EnergyBalanceSkeleton;

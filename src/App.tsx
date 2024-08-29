@@ -1,5 +1,5 @@
 import './App.css'
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import AppRouter from "./components/AppRouter";
 import {useEffect} from "react";
 import UserService from "./services/UserService";
@@ -11,7 +11,7 @@ import {Toaster} from 'react-hot-toast';
 import i18n from "./i18.js"
 import BoosterService from "./services/BoosterService.ts";
 import {BoostersSlice} from "./store/reducers/BoostersSlice.ts";
-import {AGE_REWARD_PAGE, SHARE_LINK_PAGE} from "./utils/consts";
+import {AGE_REWARD_PAGE, ROULETTE_PAGE, SHARE_LINK_PAGE} from "./utils/consts";
 import TaskService from "./services/TaskService.ts";
 import {TasksSlice} from "./store/reducers/TasksSlice.ts";
 import ReferralService from "./services/ReferralService.ts";
@@ -35,19 +35,20 @@ const App = () => {
     const userData = useAppSelector(state => state.UserReducer);
 
     const navigate = useNavigate();
-
+    const location = useLocation();
 
     const getUserInfo = async () => {
         console.log(`v-1.1`)
         try {
             const res = await UserService.getUserInfo()
             dispatch(setUser(res.data))
+            console.log(res);
             i18n.changeLanguage(res.data.user.selected_language_code);
             dispatch(setIsLoadedTrue())
-            if(!res.data.user_start.opened){
+            if(!location.pathname.startsWith(ROULETTE_PAGE) && !res.data.user_start.opened){
                 navigate(res.data.age_feature ? AGE_REWARD_PAGE : SHARE_LINK_PAGE)
             }
-            if(res.data.user_start.opened && !res.data.user_start.opened_age && res.data.user_start.reward){
+            if(!location.pathname.startsWith(ROULETTE_PAGE) && res.data.user_start.opened && !res.data.user_start.opened_age && res.data.user_start.reward){
                 navigate(AGE_REWARD_PAGE)
             }
         }catch (e) {
@@ -115,7 +116,7 @@ const App = () => {
         }, 1000);
 
         return () => clearInterval(intervalId);
-    }, [userData.hours, userData.energy, dispatch]);
+    }, [userData.hours, userData.energy]);
 
     useEffect(() => {
         if(initDataRaw && initDataRaw.length > 0){

@@ -3,6 +3,7 @@ import {NavLink, useLocation} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import {useEffect, useState} from "react";
 import {useAppSelector} from "../../hooks/redux.ts";
+import {WITHDRAWAL_USDT} from "../../utils/consts.ts";
 
 const Footer = () => {
     const { t } = useTranslation();
@@ -11,7 +12,7 @@ const Footer = () => {
     const location = useLocation();
 
     useEffect(() => {
-        const paths = ['/reward', '/profile', '/start', '/age-reward', '/share-link'];
+        const paths = ['/reward', '/profile', '/start', '/age-reward', '/share-link', WITHDRAWAL_USDT];
         if (paths.some(path => location.pathname.startsWith(path))) {
             setShow(false)
         }else{
@@ -36,6 +37,10 @@ const Footer = () => {
                         <NavLink className={styles.footer_link} to={'/boosters'}>
                             <img src="/footer/boosters.svg" alt=""/>
                             <span>{t('boosters')}</span>
+                        </NavLink>
+                        <NavLink className={styles.footer_link} to={'/roulette'}>
+                            <img src="/footer/roulette.svg" alt=""/>
+                            <span>{t('roulette.title')}</span>
                         </NavLink>
                         <NavLink className={styles.footer_link} to={'/friends'}>
                             <img src="/footer/friends.svg" alt=""/>

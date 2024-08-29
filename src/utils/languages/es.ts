@@ -70,4 +70,23 @@ export const es_translation = {
     "tads_title": "Tareas adicionales",
     "tads_subtitle": "recibirás por completar",
     "tads_not_found": "No se encontraron tareas adicionales",
+
+    "roulette.title": "Ruleta",
+    "roulette.buy": "Comprar giro",
+    "roulette.available": "Disponible para la compra",
+    "roulette.timer": "Hasta giros gratis",
+    "withdrawal": "Retirada",
+    "withdrawal.amount": "Cantidad",
+    "withdrawal.created": "Solicitud de retiro creada",
+    "shop": "Tienda",
+    "shop.buy_spin":"Giro de ruleta",
+    "shop.click":"Mega clic",
+    "shop.click_description": "Gasta toda la energía en un clic",
+
+    "roulette.invite_spins": "Te has quedado sin el límite diario para comprar giros",
+    "roulette.invite_formula": "Por cada amigo tienes la oportunidad de comprar 3 giros más por día",
+
+    "ads.watch": "Ver anuncios",
+    "ads.watch_error": "No se pudo cargar el anuncio",
+    "ads.watch_empty": "Se acabó la publicidad",
 }

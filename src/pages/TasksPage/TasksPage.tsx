@@ -1,5 +1,4 @@
 //@ts-nocheck
-
 import styles from './Tasks.module.scss'
 import {useEffect, useState} from "react";
 import TaskService from "../../services/TaskService.ts";
@@ -28,6 +27,7 @@ const TasksPage = () => {
     const navigate = useNavigate()
     const referrals_count = useAppSelector(state => state.ReferralsReducer.count)
 
+
     const changeSelectedMode = (mode:Mode) => {
         setSelectedMode(mode)
         if(tasksData.tasks){
@@ -41,7 +41,6 @@ const TasksPage = () => {
 
 
     const doClick = async (task:Task) => {
-        console.log(task);
         if(task.user_task != null && task.user_task.task_collected == false){
             try {
                 dispatch(incrementBalance(task.user_task.reward))
@@ -72,7 +71,6 @@ const TasksPage = () => {
                 doFriends(task)
                 break
         }
-        // changeSelectedMode('completed')
     }
 
     const doTelegramGroup = async (task: Task) => {
@@ -181,7 +179,9 @@ const TasksPage = () => {
                 </div>
             </div>
             <h3 onClick={() => dispatch(changePopupState())} className={styles.tasks_subtitle}>{ t('tasks.subtitle') }</h3>
-            {/*<TadsComponent />*/}
+            <div id={"tads"}>
+                <TadsComponent />
+            </div>
 
             {!tasksData.is_loaded ?
                 <TasksSkeleton/>

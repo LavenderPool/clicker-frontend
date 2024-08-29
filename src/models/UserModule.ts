@@ -17,10 +17,6 @@ export interface UserModule {
     updated_at: string,
 }
 
-export interface BalanceModule {
-    balance: number,
-}
-
 export interface UserStartModule {
     account_age: number,
     opened: boolean,

@@ -71,4 +71,23 @@ export const en_translation = {
     "tads_title": "Additional tasks",
     "tads_subtitle": "you will receive for completing",
     "tads_not_found": "Additional tasks were not found",
+
+    "roulette.title": "Roulette",
+    "roulette.buy": "Buy Spin",
+    "roulette.available": "Available for purchase",
+    "roulette.timer": "Up to free spins",
+    "withdrawal": "Withdrawal",
+    "withdrawal.amount": "Amount",
+    "withdrawal.created": "Withdrawal request created",
+    "shop": "Shop",
+    "shop.buy_spin": "Roulette Spin",
+    "shop.click": "Mega click",
+    "shop.click_description": "Spends all energy in one click",
+
+    "roulette.invite_spins": "You have run out of the daily limit for buying spins",
+    "roulette.invite_formula": "For each friend you get the opportunity to buy 3 more spins per day",
+
+    "ads.watch": "View ads",
+    "ads.watch_error": "Failed to load the ad",
+    "ads.watch_empty": "The commercial is over",
 }

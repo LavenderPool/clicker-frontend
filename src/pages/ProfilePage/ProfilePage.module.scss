@@ -86,10 +86,18 @@
             font-weight: 600;
             margin-bottom: 0;
         }
+
+        img{
+            width: 16px;
+            height: 16px;
+            margin-bottom: 8px;
+        }
     }
     &_button_right{
         display: block;
         margin-left: auto;
+        color: unset;
+        text-decoration: none;
     }
 
 

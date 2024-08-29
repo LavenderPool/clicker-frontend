@@ -68,8 +68,28 @@ export const ru_translation = {
 
     "tasks_new": "Новые",
 
-
     "tads_title": "Дополнительные задания",
     "tads_subtitle": "за их выполнение вы получите",
     "tads_not_found": "Дополнительные задания не найдены",
+
+
+    "roulette.title": "Рулетка",
+    "roulette.buy": "Купить спин",
+    "roulette.timer": "До обновления количества доступных спинов",
+    "roulette.available": "Доступно к покупке ",
+
+    "withdrawal": "Вывод",
+    "withdrawal.amount": "Сумма",
+    "withdrawal.created": "Заявка на вывод создана",
+    "shop": "Магазин",
+    "shop.buy_spin": "Спин для рулетки",
+    "shop.click": "Мега клик",
+    "shop.click_description": "За один клик тратит всю энергию",
+
+    "roulette.invite_spins": "У вас закончился дневной лимит покупки спинов",
+    "roulette.invite_formula": "За каждого друга вы получаете возможность купить еще 3 спина в день",
+
+    "ads.watch": "Посмотреть рекламу",
+    "ads.watch_error": "Не удалось загрузить рекламу",
+    "ads.watch_empty": "Реклама закончилась",
 }

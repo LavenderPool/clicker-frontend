@@ -12,7 +12,7 @@ const ClickerButton = ({balanceRef}) => {
     const [clickerState, setClickerState] = useState<boolean>(true);
 
     const dispatch = useAppDispatch();
-    const { removeClickFromBalance, addClickToBalance, setEnergy } = UserSlice.actions;
+    const { removeClickFromBalance, addClickToBalance, setEnergy, incrementBalance } = UserSlice.actions;
 
     const userData = useAppSelector(state => state.UserReducer)
 
@@ -40,13 +40,18 @@ const ClickerButton = ({balanceRef}) => {
             return 0
         }
 
-
         if(!clickerState || !userData.is_loaded){
             return 0
         }
+
+        if(userData.shop.mega_click_status){
+            return megaClick(event);
+        }
+
+
         dispatch(addClickToBalance())
         dispatch(setEnergy(userData.energy-1))
-        createFloatingNumber(event);
+        createPenis(event);
 
         try {
             const res = await ClickService.click()
@@ -69,12 +74,42 @@ const ClickerButton = ({balanceRef}) => {
         localStorage.setItem('lastUpdateTimestamp', Date.now().toString());
     }
 
-    const createFloatingNumber = (event:React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const megaClick = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        setClickerState(false)
+        createPenis(event, true)
+        if (navigator.vibrate) {
+            navigator.vibrate(200);
+        } else {
+            console.log("Ваше устройство не поддерживает вибрацию.");
+        }
+        try {
+            const res = await ClickService.megaClick()
+            console.log(res);
+            dispatch(setEnergy(res.data.energy + 0.0001))
+            const addCoins = res.data.energy_spent * userData.click_price
+            dispatch(incrementBalance(addCoins))
+        }catch (e) {
+            sendErrorMessage('Server error')
+            console.log(e);
+        }
+        localStorage.setItem('lastUpdateTimestamp', Date.now().toString());
+        setClickerState(true)
+    }
+
+    const createPenis = (event:React.MouseEvent<HTMLButtonElement, MouseEvent>, isMegaPenis = false) => {
         const img = document.createElement('img');
-        img.src = '/penis.svg';
-        img.className = styles.floatingImage;
-        img.style.left = `${event.clientX - 45}px`;
-        img.style.top = `${event.clientY - 25}px`;
+        if(isMegaPenis){
+            img.src = '/svgs/penis-fire.svg';
+            img.className = styles.floatingImageMega;
+            img.style.left = `${event.clientX - 75}px`;
+            img.style.top = `${event.clientY - 75}px`;
+        }else{
+            img.src = '/svgs/penis.svg';
+            img.className = styles.floatingImage;
+            img.style.left = `${event.clientX - 45}px`;
+            img.style.top = `${event.clientY - 25}px`;
+        }
+
         document.body.appendChild(img);
 
         if (balanceRef.current) {
@@ -86,8 +121,13 @@ const ClickerButton = ({balanceRef}) => {
             const targetY = randomY;
 
             setTimeout(() => {
-                img.style.transform = `translate(${targetX - event.clientX}px, ${targetY - event.clientY}px) rotate3d(1, 1, 0, 360deg)`;
-                img.style.opacity = '0';
+                if(isMegaPenis){
+                    img.style.transform = `translate(${targetX - event.clientX}px, ${targetY - event.clientY}px) rotate3d(1, 1, 0, 0)`;
+                    img.style.opacity = '0';
+                }else{
+                    img.style.transform = `translate(${targetX - event.clientX}px, ${targetY - event.clientY}px) rotate3d(1, 1, 0, 360deg)`;
+                    img.style.opacity = '0';
+                }
             }, 0);
 
             setTimeout(() => {

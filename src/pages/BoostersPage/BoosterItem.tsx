@@ -56,7 +56,7 @@ const TimeBooster = ({type}:Props) => {
     return (
         <>
             <div className={styles.booster} onClick={showPopup}>
-                <img src={`/boosters/${type}_${currentLvl}.png`} className={styles.booster_img}/>
+                <img src={`/boosters/${type}.png`} className={styles.booster_img}/>
                 <div className={styles.booster_info}>
                     <div className={styles.booster_title}>
                         { t(`${type}.title`) }
