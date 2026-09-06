@@ -1,27 +1,129 @@
-# React + TypeScript + Vite
+# Clicker — Telegram Mini App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Клиентская часть игрового Telegram Mini App: пользователь зарабатывает внутриигровую валюту кликами, выполняет задания, приглашает друзей, улучшает бустеры и участвует в рулетке.
 
-Currently, two official plugins are available:
+Проект демонстрирует работу с Telegram Web Apps, асинхронным API, централизованным состоянием и адаптивным игровым интерфейсом.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Возможности
 
-## Expanding the ESLint configuration
+- Кликер с балансом, энергией и её восстановлением
+- Улучшения энергии и силы клика
+- Покупка и активация Mega Click
+- Ежедневная рулетка с призами в игровой валюте и USDT
+- Задания: переходы на сайты, Telegram-каналы и реферальные цели
+- Реферальная система и нативный шеринг ссылки через Telegram
+- Настройка имени профиля и языка интерфейса
+- Онбординг с наградой за возраст аккаунта
+- Локализация: русский, английский, испанский и индонезийский языки
+- Скелетоны загрузки, toast-уведомления и анимации интерфейса
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Стек
 
-- Configure the top-level `parserOptions` property like this:
+| Область | Технологии |
+| --- | --- |
+| UI | React 18, TypeScript, SCSS Modules |
+| Сборка | Vite |
+| Состояние | Redux Toolkit, React Redux |
+| Навигация | React Router |
+| Telegram | `@tma.js/sdk-react`, `@tma.js/sdk` |
+| HTTP | Axios |
+| i18n | i18next, react-i18next |
+| Анимации | Framer Motion, React Confetti, React Custom Roulette |
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
+## Быстрый старт
+
+### Требования
+
+- Node.js 18 или новее
+- npm
+- Backend API, совместимый с используемыми эндпоинтами
+- Telegram для полноценной проверки сценариев Mini App
+
+### Установка и запуск
+
+```bash
+git clone <repository-url>
+cd clicker
+npm install
+cp .env.example .env
+npm run dev
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+После запуска Vite выведет локальный адрес приложения. Для проверки Telegram-сценариев укажите доступный извне HTTPS URL в настройках бота.
+
+### Production-сборка
+
+```bash
+npm run build
+npm run preview
+```
+
+## Конфигурация
+
+Создайте `.env` на основе `.env.example`.
+
+| Переменная | Назначение |
+| --- | --- |
+| `VITE_API_BASE` | Базовый URL backend API |
+| `VITE_BACKEND_URL` | URL backend-сервиса |
+| `VITE_TELEGRAM_LINK` | Ссылка на Telegram-бота |
+| `VITE_IN_PROD` | Флаг production-режима (`true` / `false`) |
+| `VITE_NGROK` | Публичный URL туннеля для локальной разработки, если используется |
+
+> В переменные с префиксом `VITE_` нельзя помещать секреты: Vite включает их в клиентский бандл.
+
+## Архитектура
+
+```text
+src/
+├── components/  # Переиспользуемые UI-компоненты и состояния загрузки
+├── pages/       # Экранные сценарии приложения
+├── services/    # Клиенты backend API по доменам
+├── store/       # Redux store и slice-редьюсеры
+├── models/      # TypeScript-модели данных
+├── hooks/       # Типизированные Redux-хуки и интеграции
+└── utils/       # Маршруты, локализация и вспомогательные функции
+```
+
+При старте приложение получает `initData` из Telegram, передаёт его в заголовке `Authorization` каждого API-запроса и загружает профиль, бустеры, задания и рефералов в Redux store. Бизнес-операции сгруппированы в сервисах (`UserService`, `TaskService`, `BoosterService`, `RouletteService` и других), а страницы отвечают за пользовательские сценарии и отображение состояния.
+
+## Основные сценарии
+
+1. **Игровой цикл** — клики расходуют энергию и увеличивают баланс; энергия восстанавливается со временем.
+2. **Прогрессия** — пользователь улучшает силу клика и скорость восстановления энергии.
+3. **Вовлечение** — задания и рефералы пополняют баланс, а Telegram SDK позволяет делиться инвайт-ссылкой.
+4. **Награды** — рулетка выдаёт ежедневные вращения и предлагает приобрести дополнительные.
+
+## API-интеграция
+
+Клиент ожидает REST API по адресу `VITE_API_BASE`. Среди используемых групп эндпоинтов:
+
+- `user/*` — профиль, язык и публичное имя
+- `click`, `mega-click` — игровые действия
+- `boosters/*` и `shop/*` — улучшения и покупки
+- `tasks/*` — задания и получение наград
+- `referrals/*` — приглашения
+- `roulette/*` — вращения и ежедневные награды
+- `usdt-transaction` — создание заявки на вывод USDT
+
+Backend не входит в этот репозиторий.
+
+## Команды
+
+| Команда | Описание |
+| --- | --- |
+| `npm run dev` | Запустить dev-сервер Vite |
+| `npm run build` | Проверить типы TypeScript и собрать production-бандл |
+| `npm run build-danger` | Собрать бандл Vite без type-check |
+| `npm run preview` | Локально просмотреть production-сборку |
+
+## Что можно улучшить
+
+- Добавить unit- и e2e-тесты для игровых сценариев
+- Настроить ESLint и Prettier в CI
+- Добавить обработку ошибок API на едином уровне
+- Заменить `@ts-nocheck` в отдельных страницах на строгую типизацию
+
+## Автор
+
+Разработано как pet-проект для демонстрации навыков frontend-разработки.
